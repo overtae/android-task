@@ -1,21 +1,32 @@
 package com.example.playground
 
 fun main() {
-    val calculator = Calculator()
+    val numbers = getNumberList()
 
-    println(calculator.add(1, 2) + calculator.sub(3, 4))
+    // Add
+    val addRes = AddOperation().operate(numbers)
+    println(addRes + 10)
 
-    println("계산하실 숫자를 공백으로 구분하여 입력해주세요.")
-    val numbers = getInput().split(" ").map(String::toInt)
+    // Subtract
+    val subRes = SubtractOperation().operate(numbers)
+    println(subRes + 10)
 
-    calculator.remain(numbers[0], numbers[1])
+    // Multiply
+    val mulRes = MultiplyOperation().operate(numbers)
+    println(mulRes + 10)
+
+    // Divide
+    val divRes = DivideOperation().operate(numbers)
+    println(divRes + 10)
 }
 
-fun getInput(): String {
+fun getNumberList(): List<Int> {
+    println("계산하실 숫자를 공백으로 구분하여 입력해주세요.")
+
     do {
         readlnOrNull()?.let {
             when {
-                it.replace(" ", "").toInt() != null -> return it
+                it.replace(" ", "").toIntOrNull() != null -> return it.split(" ").map(String::toInt)
                 else -> println("올바른 값을 입력해주세요.")
             }
         }
