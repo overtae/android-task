@@ -1,8 +1,8 @@
 package com.example.playground
 
-class MultiplyOperation : Calculator() {
-    override fun operate(numbers: List<Int>): Int {
-        val result = numbers.fold(1) { total, num -> total * num }
+class MultiplyOperation : AbstractOperation() {
+    override fun operate(x: Int, y: Int): Int {
+        val result = x * y
         println("곱셈 결과 >> $result")
         return result
     }

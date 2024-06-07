@@ -1,9 +1,9 @@
 package com.example.playground
 
-class DivideOperation : Calculator() {
-    override fun operate(numbers: List<Int>): Int {
+class DivideOperation : AbstractOperation() {
+    override fun operate(x: Int, y: Int): Int {
         try {
-            val result = numbers.reduce { total, num -> total / num }
+            val result = x / y
             println("나눗셈 결과 >> $result")
             return result
         } catch (e: ArithmeticException) {
