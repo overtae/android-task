@@ -17,6 +17,10 @@ fun init() {
         // main
         burgers, frozenCustard, drinks, beer,
 
+        // order
+        Menu("Order", "장바구니 확인 후 주문합니다."),
+        Menu("Cancel", "진행중인 주문을 취소합니다."),
+
         // burgers
         SubMenu(burgers.name, "ShackBurger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"),
         SubMenu(burgers.name, "SmokeShack", 8.9, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"),
@@ -48,41 +52,102 @@ fun init() {
 }
 
 fun displayMenu() {
-    while (true) {
-        val (food, menu) = menuList.partition { it is SubMenu }
-        val maxMenuLength = menu.maxOfOrNull { it.name.length } ?: 0
+    val (sub, menu) = menuList.partition { it is SubMenu }
+    val subMenu = sub.groupBy { (it as SubMenu).category }
 
+    println("예산을 입력해주세요.")
+    val order = Order(getInput())
+
+    while (true) {
         println("\"SHAKESHACK BURGER 에 오신걸 환영합니다.\"")
         println("아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n")
-        println("[ SHAKESHACK MENU ]")
-        menu.mapIndexed { i, item ->
-            print("${i + 1}. ")
-            item.displayInfo(maxMenuLength)
+
+        // 대분류 메뉴
+        val selectedMenuNumber = getMenu(menu, order)
+        var selectedMenu: Menu? = null
+
+        when (selectedMenuNumber) {
+            0 -> return
+            5 -> handleOrder(order)
+            6 -> order.clearCart()
+            else -> selectedMenu = menu[selectedMenuNumber - 1]
         }
-        println("0. ${"종료".padEnd(maxMenuLength, ' ')} | 프로그램 종료\n")
+        if (selectedMenu == null) continue
 
-        // 대분류 메뉴 입력
-        val selectedMenuNumber = getInput(0..menu.size).also { if (it == 0) return }
-        val selectedMenu = menu[selectedMenuNumber - 1]
-        val filteredSubMenu = food.filter { (it as SubMenu).category == selectedMenu.name }
-        val maxFoodLength = filteredSubMenu.maxOfOrNull { it.name.length } ?: 0
+        // 소분류 메뉴
+        val filteredSubMenu = subMenu[selectedMenu.name]!!
+        val subMenuFormatLength = filteredSubMenu.maxOfOrNull { it.name.length } ?: 0
+        val selectedSubMenuNumber = getSubMenu(filteredSubMenu, subMenuFormatLength)
 
-        println("[ ${selectedMenu.name} MENU ]")
-        filteredSubMenu.mapIndexed { i, item ->
-            print("${i + 1}. ")
-            item.displayInfo(maxFoodLength)
+        if (selectedSubMenuNumber == 0) continue
+
+        // 장바구니 추가
+        val selectedSubMenu = filteredSubMenu[selectedSubMenuNumber - 1]
+        val selectedOrderMenu = getCartMenu(selectedSubMenu, subMenuFormatLength)
+
+        if (selectedOrderMenu == 2) continue
+
+        order.addToCart(selectedSubMenu as SubMenu)
+    }
+}
+
+fun handleOrder(order: Order) {
+    println("\n아래와 같이 주문 하시겠습니까?\n")
+    order.displayCart()
+    println("1. 주문      2. 메뉴판")
+
+    val input = getInput(1..2)
+    if (input == 1) order.purchase()
+}
+
+fun getMenu(menu: List<Menu>, currentOrder: Order): Int {
+    val (main, order) = menu.partition { "주문" !in it.description }
+    val menuFormatLength = menu.maxOfOrNull { it.name.length } ?: 0
+    var menuSize = main.size
+
+    println("[ SHAKESHACK MENU ]")
+    main.mapIndexed { i, item ->
+        print("${i + 1}. ")
+        item.displayInfo(menuFormatLength)
+    }
+    if (currentOrder.cart.isNotEmpty()) {
+        menuSize = menu.size
+        println("\n[ ORDER MENU ]")
+        order.mapIndexed { i, item ->
+            print("${main.size + i + 1}. ")
+            item.displayInfo(menuFormatLength)
         }
-        println("0. ${"뒤로가기".padEnd(maxFoodLength, ' ')}| 뒤로가기\n")
+    }
+    println("0. ${"종료".padEnd(menuFormatLength, ' ')} | 프로그램 종료\n")
 
-        // 소분류 메뉴 입력
-        val selectedFoodNumber = getInput(0..filteredSubMenu.size)
+    return getInput(0..menuSize)
+}
 
-        if (selectedFoodNumber == 0) continue
-        else {
-            val selectedFood = filteredSubMenu[selectedFoodNumber - 1]
-            println("선택하신 메뉴를 확인해주세요.")
-            selectedFood.displayInfo(maxFoodLength)
-            println()
+fun getSubMenu(subMenu: List<Menu>, formatLength: Int): Int {
+    println("[ ${(subMenu[0] as SubMenu).category} MENU ]")
+    subMenu.mapIndexed { i, item ->
+        print("${i + 1}. ")
+        item.displayInfo(formatLength)
+    }
+    println("0. ${"뒤로가기".padEnd(formatLength, ' ')}| 뒤로가기\n")
+
+    return getInput(0..subMenu.size)
+}
+
+fun getCartMenu(item: Menu, formatLength: Int): Int {
+    item.displayInfo(formatLength)
+    println("위 메뉴를 장바구니에 추가하시겠습니까?")
+    println("1. 확인        2. 취소")
+
+    return getInput(1..2)
+}
+
+fun getInput(): Double {
+    while (true) {
+        try {
+            return readln().toDouble()
+        } catch (e: NumberFormatException) {
+            println("숫자만 입력할 수 있어요. (형식: \"5.2\")")
         }
     }
 }
