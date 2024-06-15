@@ -1,5 +1,9 @@
 package com.example.playground
 
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 import kotlin.math.round
 
 class Order(private var money: Double) {
@@ -11,13 +15,18 @@ class Order(private var money: Double) {
         money = round(money * 10) / 10
     }
 
-    fun displayCart() {
+    fun displayOrderMenu() {
         val maxCartLength = cart.maxOfOrNull { it.name.length } ?: 0
 
+        println("\n아래와 같이 주문 하시겠습니까? (현재 주문 대기수: ${waiting})\n")
         println("[ Orders ]")
         cart.map { it.displayInfo(maxCartLength) }
         println("\n[ Total ]")
         println("W $total (잔액: W $money)")
+        println("1. 주문      2. 메뉴판\n")
+
+        val input = getInput(1..2)
+        if (input == 1) purchase()
     }
 
     fun addToCart(item: SubMenu) {
@@ -34,16 +43,39 @@ class Order(private var money: Double) {
         println("장바구니를 비웠습니다.\n")
     }
 
-    fun purchase() {
+    private fun purchase() {
+        val timeFormmatter = DateTimeFormatter.ofPattern("a HH시 mm분").withLocale(Locale.KOREA)
+        val datetimeFormmatter =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd일 HH:mm:ss").withLocale(Locale.KOREA)
+
+        val current = LocalDateTime.now()
+        val currentTime = current.format(timeFormmatter)
+        val currentDate = current.format(datetimeFormmatter)
+
         if (isBuyable) {
+            if ((current.toLocalTime()) in noPurchaseTimeFrom..noPurchaseTimeTo) {
+                println("\n현재 시각은 ${currentTime}입니다.")
+                println(
+                    "은행 점검 시간은 ${noPurchaseTimeFrom.format(timeFormmatter)} ~ ${
+                        noPurchaseTimeTo.format(
+                            timeFormmatter
+                        )
+                    }이므로 결제할 수 없습니다.\n"
+                )
+                waiting++
+                return
+            }
+
+            waiting = if (waiting == 0) 0 else waiting - 1
             money -= total
             total = 0.0
             cart.clear()
 
-            println("주문이 완료되었습니다.")
+            println("결제를 완료했습니다. ($currentDate)")
             println("현재 잔액은 ${money}W 입니다.\n")
         } else {
-            println("현재 잔액은 ${money}W 으로 ${total - money}W이 부족해서 주문할 수 없습니다.")
+            val diff = round((total - money) * 10) / 10
+            println("현재 잔액은 ${money}W 으로 ${diff}W이 부족해서 주문할 수 없습니다.")
         }
     }
 
@@ -52,6 +84,8 @@ class Order(private var money: Double) {
     }
 
     companion object {
-        var waiting = 0
+        private val noPurchaseTimeFrom = LocalTime.of(1, 15)
+        private val noPurchaseTimeTo = LocalTime.of(23, 1)
+        private var waiting = 0
     }
 }
