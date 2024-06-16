@@ -5,10 +5,20 @@ import kotlin.concurrent.thread
 var menuList = ArrayList<Menu>()
 
 fun main() {
+    var isKioskFinished = false
+
     init()
 
     thread(start = true) {
         displayMenu()
+        isKioskFinished = true
+    }
+
+    thread(start = true) {
+        while (!isKioskFinished) {
+            Thread.sleep(5000)
+            Order.displayWaiting()
+        }
     }
 }
 

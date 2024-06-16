@@ -39,6 +39,7 @@ class Order(private var money: Double) {
     fun clearCart() {
         cart.clear()
         total = 0.0
+        waiting = 0
         updateBuyableState()
         println("장바구니를 비웠습니다.\n")
     }
@@ -62,7 +63,7 @@ class Order(private var money: Double) {
                         )
                     }이므로 결제할 수 없습니다.\n"
                 )
-                waiting++
+                waiting += 1
                 return
             }
 
@@ -84,8 +85,14 @@ class Order(private var money: Double) {
     }
 
     companion object {
+        @Volatile
+        private var waiting = 0
+
         private val noPurchaseTimeFrom = LocalTime.of(1, 15)
         private val noPurchaseTimeTo = LocalTime.of(23, 1)
-        private var waiting = 0
+
+        fun displayWaiting() {
+            println("현재 주문 대기수: $waiting")
+        }
     }
 }
