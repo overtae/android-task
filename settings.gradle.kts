@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "playground"
+rootProject.name = "androidtask"
 include(":app")

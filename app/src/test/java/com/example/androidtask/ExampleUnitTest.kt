@@ -1,4 +1,4 @@
-package com.example.playground
+package com.example.androidtask
 
 import org.junit.Test
 

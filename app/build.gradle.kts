@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.playground"
+    namespace = "com.example.androidtask"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.playground"
+        applicationId = "com.example.androidtask"
         minSdk = 33
         targetSdk = 34
         versionCode = 1
