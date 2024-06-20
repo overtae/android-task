@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -30,6 +31,20 @@ class SignInActivity : AppCompatActivity() {
         val togglePasswordButton = findViewById<ToggleButton>(R.id.btn_toggle_password)
         val signInButton = findViewById<Button>(R.id.btn_signin)
         val signUpButton = findViewById<Button>(R.id.btn_signup)
+
+        // 회원 가입 결과 가져오기
+        val getSignUpResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                if (it.resultCode == RESULT_OK) {
+                    val id = it.data?.getStringExtra("id") ?: ""
+                    val password = it.data?.getStringExtra("password") ?: ""
+
+                    idInput.setText(id)
+                    passwordInput.setText(password)
+
+                    showToast("회원 가입 성공")
+                }
+            }
 
         // 비밀번호 보이기/숨기기 토글
         togglePasswordButton.setOnCheckedChangeListener { _, isChecked ->
@@ -56,7 +71,7 @@ class SignInActivity : AppCompatActivity() {
         // 회원가입 버튼
         signUpButton.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+            getSignUpResult.launch(intent)
         }
     }
 

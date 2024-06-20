@@ -1,5 +1,6 @@
 package com.example.androidtask
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -44,7 +45,12 @@ class SignUpActivity : AppCompatActivity() {
             if (nameInput.text.isEmpty() || idInput.text.isEmpty() || passwordInput.text.isEmpty()) {
                 showToast("입력되지 않은 정보가 있습니다.")
             } else {
-                showToast("회원 가입이 완료 되었습니다.")
+                val intent = Intent(this, SignInActivity::class.java)
+
+                intent.putExtra("id", idInput.text.toString())
+                intent.putExtra("password", passwordInput.text.toString())
+
+                setResult(RESULT_OK, intent)
                 finish()
             }
         }
