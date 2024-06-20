@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
+val users = ArrayList<User>()
+
 class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,16 +57,18 @@ class SignInActivity : AppCompatActivity() {
 
         // 로그인 버튼
         signInButton.setOnClickListener {
-            if (idInput.text.isEmpty() || passwordInput.text.isEmpty()) {
-                showToast("아이디/비밀번호를 확인해주세요.")
-            } else {
+            val id = idInput.text.toString()
+            val password = passwordInput.text.toString()
+
+            if (checkIsUserExist(id, password)) {
                 val intent = Intent(this, HomeActivity::class.java)
 
-                // TODO: 만약 등록이 되어 있는 아이디/비밀번호라면,
-                println(idInput.text)
                 intent.putExtra("id", idInput.text.toString())
+
                 showToast("로그인 성공")
                 startActivity(intent)
+            } else {
+                showToast("아이디/비밀번호를 확인해주세요.")
             }
         }
 
@@ -73,6 +77,10 @@ class SignInActivity : AppCompatActivity() {
             val intent = Intent(this, SignUpActivity::class.java)
             getSignUpResult.launch(intent)
         }
+    }
+
+    private fun checkIsUserExist(id: String, password: String): Boolean {
+        return users.any { it.id == id && it.password == password }
     }
 
     fun showToast(message: String) {
