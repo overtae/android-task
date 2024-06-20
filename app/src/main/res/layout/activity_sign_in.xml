@@ -3,118 +3,109 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@drawable/bg_gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="30dp"
     tools:context=".SignInActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_ghost"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="-100dp"
+        android:elevation="20dp"
+        app:layout_constraintEnd_toEndOf="@id/container"
+        app:layout_constraintStart_toStartOf="@id/container"
+        app:layout_constraintTop_toTopOf="@id/container"
+        app:srcCompat="@drawable/ghost_flower" />
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:background="@drawable/round_transparent_box"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:clipToPadding="false"
+
+        android:paddingTop="100dp"
+        android:paddingBottom="30dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/wave" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="아이디"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/et_id"
-        app:layout_constraintEnd_toEndOf="@+id/et_id"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@+id/et_id" />
-
-    <EditText
-        android:id="@+id/et_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:hint="아이디를 입력하세요."
-        android:inputType="textVisiblePassword"
-        android:text=""
-        android:maxLength="20"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="비밀번호"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/fl_password"
-        app:layout_constraintEnd_toEndOf="@id/fl_password"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@id/fl_password" />
-
-    <FrameLayout
-        android:id="@+id/fl_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_id">
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:maxLength="20"
-            android:hint="비밀번호를 입력하세요."
-            android:inputType="textPassword" />
-
-        <ToggleButton
-            android:id="@+id/btn_toggle_password"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="5dp"
-            android:layout_gravity="end"
-            android:background="@drawable/toggle_eye"
-            android:textOff=""
-            android:textOn="" />
-
-    </FrameLayout>
-
-    <Button
-        android:id="@+id/btn_signin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:text="로그인"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fl_password" />
-
-    <Button
-        android:id="@+id/btn_signup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:text="회원가입"
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_signin"
-        app:layout_constraintVertical_bias="0" />
 
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp">
+
+        <TextView
+            android:id="@+id/tv_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text="환영합니다."
+            android:textColor="@color/primary"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/DescText"
+            android:text="아이디" />
+
+        <EditText
+            android:id="@+id/et_id"
+            style="@style/InputText"
+            android:hint="아이디를 입력하세요."
+            android:inputType="textVisiblePassword" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/DescText"
+            android:layout_marginTop="20dp"
+            android:text="비밀번호" />
+
+        <FrameLayout
+            android:id="@+id/fl_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_password"
+                style="@style/InputText"
+                android:hint="비밀번호를 입력하세요."
+                android:inputType="textPassword" />
+
+            <ToggleButton
+                android:id="@+id/btn_toggle_password"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="13dp"
+                android:layout_gravity="end|center_vertical"
+                android:background="@drawable/toggle_eye"
+                android:textOff=""
+                android:textOn="" />
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btn_signin"
+            style="@style/SolidButton"
+            android:layout_marginTop="40dp"
+            android:text="로그인" />
+
+        <Button
+            android:id="@+id/btn_signup"
+            style="@style/BorderButton"
+            android:layout_marginTop="20dp"
+            android:text="회원가입" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
