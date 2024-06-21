@@ -1,26 +1,42 @@
-## Android 개발 종합반
+<a name="readme-top"></a>
 
-<div align=center width="100%">
-<table width="100%">
-  <tr align=center>
-    <th width="33%">BMI 계산기</td>
-    <th width="33%">랜덤 로또 번호 생성기</td>
-    <th width="33%">MBTI 테스트</td>
-  </tr>
-  <tr align=center>
-    <td><a href="https://github.com/overtae/playground/tree/bmi-calculator">[ 링크 ]</a></td>
-    <td><a href="https://github.com/overtae/playground/tree/random-lotto-num-picker">[ 링크 ]</a></td>
-    <td><a href="https://github.com/overtae/playground/tree/mbti-test">[ 링크 ]</a></td>
-  </tr>
-  <tr align=center>
-    <td><img src="https://github.com/overtae/playground/assets/51291185/4686c8ed-acc2-436a-9b08-cbf87abed9c5" /></td>
-    <td><img src="https://github.com/overtae/playground/assets/51291185/596620bc-0ea6-4cf6-af89-6030c0f58ab1" /></td>
-    <td><img src="https://github.com/overtae/playground/assets/51291185/d8d8fe77-f665-4da4-a984-f7638020214f" /></td>
-  </tr>
-  <tr align=center>
-    <td>신장과 체중을 입력하면 BMI를 계산해주는 앱</td>
-    <td>랜덤으로 로또 번호를 추천 해주는 앱</td>
-    <td>간단한 MBTI 테스트를 해볼 수 있는 앱</td>
-  </tr>
-</table>
+<br />
+<div align="center">
+  <a href="https://github.com/overtae/android-task">
+    <img src="https://github.com/overtae/android-task/assets/51291185/765e1e62-a7ed-4df2-9d24-9b0726861162" alt="Logo" width="500">
+  </a>
+
+<br />
+
+<h3 align="center"><br>Android 앱개발 4기</h3>
+
+  <p align="center">
+    개인 과제 모음입니다 ♡⸜(˶˃ ᵕ ˂˶)⸝♡
+    <br />
+    <br />
+    <br />
+    <img src="https://github.com/overtae/android-task/assets/51291185/c1159921-d990-4992-863d-d4e34c0ef550" alt="line" height="15" />
+    <br />
+    <br />
+    <br />
+    <strong>[ 코드 보러가기 ]</strong>
+    <br />
+    <br />
+    <a href="https://github.com/overtae/android-task/tree/calculator">계산기</a>
+    &nbsp
+    <img src="https://github.com/overtae/android-task/assets/51291185/81275307-2fa7-4c4c-8358-8be747dd06c8" alt="divider" height="10" />
+    &nbsp
+    <a href="https://github.com/overtae/android-task/tree/kiosk">키오스크</a>
+    &nbsp
+    <img src="https://github.com/overtae/android-task/assets/51291185/81275307-2fa7-4c4c-8358-8be747dd06c8" alt="divider" height="10" />
+    &nbsp
+    <a href="https://github.com/overtae/android-task/tree/login">자기소개 앱</a>
+  </p>
 </div>
+
+
+
+
+<!--
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+-->
