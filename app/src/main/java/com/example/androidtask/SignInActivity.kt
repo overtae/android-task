@@ -28,6 +28,7 @@ class SignInActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        users.add(User("1", "1", "김태영"))
 
         val idInput = findViewById<EditText>(R.id.et_id)
         val passwordInput = findViewById<EditText>(R.id.et_password)
