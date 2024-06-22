@@ -48,4 +48,24 @@
         <item name="android:textColor">@color/text</item>
         <item name="android:textColorHint">@color/text</item>
     </style>
+
+    <style name="LineRow">
+        <item name="android:layout_width">2dp</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_rowSpan">2</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:src">@color/gray</item>
+        <item name="android:background">@drawable/box_round</item>
+    </style>
+
+    <style name="LineCol">
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_columnSpan">5</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:src">@color/gray</item>
+        <item name="android:background">@drawable/box_round</item>
+    </style>
 </resources>

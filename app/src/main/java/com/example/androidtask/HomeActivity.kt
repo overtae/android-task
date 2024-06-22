@@ -2,6 +2,7 @@ package com.example.androidtask
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -10,12 +11,19 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class HomeActivity : AppCompatActivity() {
-    val colors = mapOf(
-        "blue" to R.drawable.blue_flower,
-        "pink" to R.drawable.pink_flower,
-        "purple" to R.drawable.purple_flower,
-        "red" to R.drawable.red_flower,
-        "yellow" to R.drawable.yellow_flower
+    private val headImages = listOf(
+        R.drawable.image1,
+        R.drawable.image2,
+        R.drawable.image3,
+        R.drawable.image4,
+        R.drawable.image5
+    )
+
+    private val pikachuImages = listOf(
+        R.drawable.pikachu1,
+        R.drawable.pikachu2,
+        R.drawable.pikachu3,
+        R.drawable.pikachu4
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,19 +41,30 @@ class HomeActivity : AppCompatActivity() {
 
         val idText = findViewById<TextView>(R.id.tv_id)
         val nameText = findViewById<TextView>(R.id.tv_name)
+        val ageText = findViewById<TextView>(R.id.tv_age)
+        val mbtiText = findViewById<TextView>(R.id.tv_mbti)
+        val genderText = findViewById<TextView>(R.id.tv_gender)
 
         val image = findViewById<ImageView>(R.id.iv_image)
-        val exitButton = findViewById<Button>(R.id.btn_exit)
+        val pikachuImage = findViewById<ImageView>(R.id.iv_pikachu)
+
+        val exitButton = findViewById<ImageButton>(R.id.btn_exit)
 
         idText.text = getString(R.string.id_info, user?.id)
-        nameText.text = getString(R.string.name_info, user?.name)
+        nameText.text = getString(R.string.text_info, user?.name)
+        ageText.text = getString(R.string.number_info, user?.age)
+        mbtiText.text = getString(R.string.text_info, user?.mbti)
+        genderText.text = getString(R.string.text_info, user?.gender)
 
         exitButton.setOnClickListener {
             finish()
         }
 
-        val color = colors.keys.random()
-        image.setImageResource(colors[color]!!)
+        val headImageRes = headImages.random()
+        image.setImageResource(headImageRes)
+
+        val pikachuImageRes = pikachuImages.random()
+        pikachuImage.setImageResource(pikachuImageRes)
     }
 
     private fun findUserById(id: String): User? {

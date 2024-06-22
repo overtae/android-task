@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">android-task</string>
-    <string name="id_info">아이디: %1$s</string>
+    <string name="id_info">ID: %1$s</string>
     <string name="name_info">이름: %1$s</string>
+    <string name="text_info">%1$s</string>
+    <string name="number_info">%1$d</string>
 </resources>
