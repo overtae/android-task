@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@drawable/bg_gradient"
+    android:background="@drawable/main_gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignInActivity">
@@ -12,24 +12,24 @@
         android:id="@+id/iv_ghost"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="-100dp"
+        android:layout_marginBottom="-50dp"
         android:elevation="20dp"
         app:layout_constraintEnd_toEndOf="@id/container"
         app:layout_constraintStart_toStartOf="@id/container"
-        app:layout_constraintTop_toTopOf="@id/container"
-        app:srcCompat="@drawable/ghost_flower" />
+        app:layout_constraintBottom_toTopOf="@id/container"
+        app:srcCompat="@drawable/sign_in" />
 
     <LinearLayout
         android:id="@+id/container"
-        android:background="@drawable/round_transparent_box"
+        android:background="@drawable/box_white"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:clipToPadding="false"
 
-        android:paddingTop="100dp"
-        android:paddingBottom="30dp"
+        android:paddingTop="60dp"
+        android:paddingBottom="60dp"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
 
@@ -39,20 +39,20 @@
         app:layout_constraintStart_toStartOf="parent"
 
         android:layout_marginTop="100dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp">
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp">
 
         <TextView
-            android:id="@+id/tv_welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TitleText"
+            android:layout_marginBottom="10dp"
+            android:text="환영합니다." />
+
+        <TextView
+            style="@style/DescText"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            android:text="환영합니다."
-            android:textColor="@color/primary"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:text="계속 하시려면 로그인하세요." />
 
         <TextView
             android:id="@+id/textView"
@@ -72,7 +72,6 @@
             android:text="비밀번호" />
 
         <FrameLayout
-            android:id="@+id/fl_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -97,7 +96,7 @@
         <Button
             android:id="@+id/btn_signin"
             style="@style/SolidButton"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="60dp"
             android:text="로그인" />
 
         <Button

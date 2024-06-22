@@ -12,12 +12,21 @@
 
     <style name="BorderButton" parent="ButtonBase">
         <item name="android:textColor">@color/primary</item>
-        <item name="android:background">@drawable/round_border_box</item>
+        <item name="android:background">@drawable/box_round</item>
     </style>
 
     <style name="SolidButton" parent="ButtonBase">
         <item name="android:textColor">@color/white</item>
-        <item name="android:background">@drawable/round_filled_box</item>
+        <item name="android:background">@drawable/box_gradient</item>
+    </style>
+
+    <style name="TitleText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="DescText">
@@ -26,7 +35,7 @@
         <item name="android:layout_marginBottom">5dp</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/primary</item>
+        <item name="android:textColor">@color/text</item>
     </style>
 
     <style name="InputText">
@@ -34,9 +43,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:ems">10</item>
         <item name="android:padding">12dp</item>
-        <item name="android:background">@drawable/round_border_box</item>
+        <item name="android:background">@drawable/box_border</item>
         <item name="android:maxLength">20</item>
-        <item name="android:textColor">@color/description</item>
-        <item name="android:textColorHint">@color/description</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textColorHint">@color/text</item>
     </style>
 </resources>
