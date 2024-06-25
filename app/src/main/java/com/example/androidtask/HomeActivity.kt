@@ -1,7 +1,6 @@
 package com.example.androidtask
 
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -36,8 +35,7 @@ class HomeActivity : AppCompatActivity() {
             insets
         }
 
-        val id = intent.getStringExtra("id") ?: ""
-        val user = findUserById(id)
+        val user = intent.getParcelableExtra("user", User::class.java)
 
         val idText = findViewById<TextView>(R.id.tv_id)
         val nameText = findViewById<TextView>(R.id.tv_name)
@@ -65,9 +63,5 @@ class HomeActivity : AppCompatActivity() {
 
         val pikachuImageRes = pikachuImages.random()
         pikachuImage.setImageResource(pikachuImageRes)
-    }
-
-    private fun findUserById(id: String): User? {
-        return users.find { it.id == id }
     }
 }

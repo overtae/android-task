@@ -58,9 +58,7 @@ class SignUpActivity : AppCompatActivity() {
             } else {
                 val intent = Intent(this, SignInActivity::class.java)
 
-                users.add(User(id, password, name))
-                intent.putExtra("id", id)
-                intent.putExtra("password", password)
+                intent.putExtra("user", User(id, password, name))
 
                 setResult(RESULT_OK, intent)
                 finish()
@@ -86,7 +84,7 @@ class SignUpActivity : AppCompatActivity() {
      * - 영문, 숫자만 가능
      * - 다른 유저와 중복 불가
      * */
-    fun validateId(id: String): String {
+    private fun validateId(id: String): String {
         val isIdExist = users.any { it.id == id }
         val isAvailableLength = id.length in 6..12
         val isAvailableCharacter = id.matches(Regex("^[a-z]+[a-z0-9]*"))
@@ -101,14 +99,13 @@ class SignUpActivity : AppCompatActivity() {
 
     /** 비밀번호 유효성 검사
      * - 8 ~ 20자 사이
-     * - 영문, 숫자, 특수 문자 모두 사용
-     * - 사용가능 특수 문자: ~!@#$%&*-_
+     * - 영문, 숫자, 특수 문자 모두 최소 하나씩 사용
      * - 첫 문자는 영문 소문자 또는 대문자만 가능
      */
-    fun validatePassword(password: String): String {
+    private fun validatePassword(password: String): String {
         val isAvailableLength = password.length in 8..20
         val isAvailableCharacter =
-            password.matches(Regex("^[a-zA-Z](?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#\$%&*-_]).*\$"))
+            password.matches(Regex("^\\w(?=.*\\w)(?=.*\\d)(?=.*\\W).*$"))
 
         return when {
             !isAvailableLength -> "비밀번호는 8 ~ 20자 사이여야 합니다."
@@ -117,7 +114,7 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    fun showToast(message: String) {
+    private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

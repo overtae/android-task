@@ -19,6 +19,8 @@ import androidx.core.view.WindowInsetsCompat
 val users = ArrayList<User>()
 
 class SignInActivity : AppCompatActivity() {
+    private lateinit var currentUser: User
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -41,11 +43,14 @@ class SignInActivity : AppCompatActivity() {
         val getSignUpResult =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 if (it.resultCode == RESULT_OK) {
-                    val id = it.data?.getStringExtra("id") ?: ""
-                    val password = it.data?.getStringExtra("password") ?: ""
+                    val user = it.data?.getParcelableExtra("user", User::class.java)
 
-                    idInput.setText(id)
-                    passwordInput.setText(password)
+                    if (user != null) {
+                        currentUser = user
+                        users.add(user)
+                        idInput.setText(user.id)
+                        passwordInput.setText(user.password)
+                    }
 
                     showToast("회원 가입 성공")
                 }
@@ -66,7 +71,9 @@ class SignInActivity : AppCompatActivity() {
             if (checkIsUserExist(id, password)) {
                 val intent = Intent(this, HomeActivity::class.java)
 
-                intent.putExtra("id", idInput.text.toString())
+                // 새로 회원가입을 한 유저가 아닌 경우
+                if (!this::currentUser.isInitialized) currentUser = findUserById(id)!!
+                intent.putExtra("user", currentUser)
 
                 showToast("로그인 성공")
                 startActivity(intent)
@@ -94,7 +101,11 @@ class SignInActivity : AppCompatActivity() {
         return users.any { it.id == id && it.password == password }
     }
 
-    fun showToast(message: String) {
+    private fun findUserById(id: String): User? {
+        return users.find { it.id == id }
+    }
+
+    private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
