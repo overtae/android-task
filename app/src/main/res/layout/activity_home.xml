@@ -143,6 +143,52 @@
                     android:textColor="@color/description"
                     android:text="봐주셔서 감사합니다." />
 
+                <TextView
+                    android:id="@+id/tv_likes"
+                    style="@style/DescText"
+                    android:layout_gravity="center"
+                    android:layout_columnSpan="5"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/description"
+                    android:text="@string/number_info" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_like"
+                    android:layout_columnSpan="5"
+                    android:clickable="true"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/btn_bg_selector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/iv_emoji"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/btn_icon_selector"
+                        android:layout_marginEnd="10dp"
+                        android:scaleType="centerInside"
+                        app:layout_constraintTop_toTopOf="@id/tv_text"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tv_text"
+                        app:layout_constraintHorizontal_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/tv_text"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:text="좋아요"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_emoji" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </GridLayout>
 
         </LinearLayout>

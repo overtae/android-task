@@ -6,10 +6,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class HomeActivity : AppCompatActivity() {
+    private var likes = 0
+
     private val headImages = listOf(
         R.drawable.image1,
         R.drawable.image2,
@@ -42,20 +45,27 @@ class HomeActivity : AppCompatActivity() {
         val ageText = findViewById<TextView>(R.id.tv_age)
         val mbtiText = findViewById<TextView>(R.id.tv_mbti)
         val genderText = findViewById<TextView>(R.id.tv_gender)
+        val likesText = findViewById<TextView>(R.id.tv_likes)
 
         val image = findViewById<ImageView>(R.id.iv_image)
         val pikachuImage = findViewById<ImageView>(R.id.iv_pikachu)
 
         val exitButton = findViewById<ImageButton>(R.id.btn_exit)
+        val likeButton = findViewById<ConstraintLayout>(R.id.cl_like)
 
         idText.text = getString(R.string.id_info, user?.id)
         nameText.text = getString(R.string.text_info, user?.name)
         ageText.text = getString(R.string.number_info, user?.age)
         mbtiText.text = getString(R.string.text_info, user?.mbti)
         genderText.text = getString(R.string.text_info, user?.gender)
+        likesText.text = getString(R.string.number_info, likes)
 
         exitButton.setOnClickListener {
             finish()
+        }
+
+        likeButton.setOnClickListener {
+            likesText.text = getString(R.string.number_info, ++likes)
         }
 
         val headImageRes = headImages.random()
