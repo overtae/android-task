@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/page_live"
+        android:enabled="true"
+        android:icon="@drawable/ic_menu_live"
+        android:title="라이브"/>
+
+    <item
+        android:id="@+id/page_explore"
+        android:enabled="true"
+        android:icon="@drawable/ic_menu_explore"
+        android:title="탐색"/>
+
+    <item
+        android:id="@+id/page_esports"
+        android:enabled="true"
+        android:icon="@drawable/ic_menu_esports"
+        android:title="e스포츠"/>
+
+    <item
+        android:id="@+id/page_lounge"
+        android:enabled="true"
+        android:icon="@drawable/ic_menu_lounge"
+        android:title="라운지"/>
+
+</menu>
