@@ -2,4 +2,27 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="primary">#00ffa3</color>
+
+    <color name="bg_dark">#141517</color>
+
+    <color name="ico_active">#f8f8f8</color>
+    <color name="ico_inactive">#6d7485</color>
+
+    <color name="text_main">#c9cedc</color>
+    <color name="text_aside">#697183</color>
+
+    <!-- 라이브 방송 카드 -->
+    <color name="live_badge_bg_viewer">#CC000000</color>
+    <color name="live_badge_bg_live">#e02020</color>
+
+    <color name="live_title">#dfe2ea</color>
+    <color name="live_sub_title">#2e3033</color>
+
+    <color name="live_tag_border">#26FFFFFF</color>
+    <color name="live_tag_bg">#992E3033</color>
+    <color name="live_tag_text">#9da5b6</color>
+
+    <color name="card_bg">#4D2E3033</color>
 </resources>
