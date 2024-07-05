@@ -87,7 +87,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_lg_live_profile"
         app:layout_constraintStart_toEndOf="@id/iv_lg_live_profile"
         app:layout_constraintTop_toTopOf="@id/iv_lg_live_profile"
-        tools:text="스트리머 이름" />
+        tools:text="스트리머 이름 ·" />
 
     <TextView
         android:id="@+id/tv_lg_live_game"

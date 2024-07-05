@@ -32,8 +32,8 @@ class CategoryHolder(private val view: View) : RecyclerView.ViewHolder(view) {
             }
 
             tvName.text = builder
-            tvViewer.text = "● ${formatNumber(category.viewer)}"
-            tvLiveCount.text = "라이브 ${category.liveCount}개"
+            tvViewer.text = formatNumber(category.viewer)
+            tvLiveCount.text = view.context.getString(R.string.live_count, category.liveCount)
 
             ivScreen.setImageResource(category.img)
         }
