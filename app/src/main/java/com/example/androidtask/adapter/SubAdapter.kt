@@ -11,11 +11,11 @@ import com.example.androidtask.data.ListDataWrapper
 import com.example.androidtask.data.Live
 import com.example.androidtask.data.Streamer
 import com.example.androidtask.holder.CategoryHolder
+import com.example.androidtask.holder.CommonLiveHolder
 import com.example.androidtask.holder.LgLiveHolder
-import com.example.androidtask.holder.MdLiveHolder
 import com.example.androidtask.holder.StreamerHolder
 
-class SubAdapter(private val item: ArrayList<ListDataWrapper>) :
+class SubAdapter(private val item: List<ListDataWrapper>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -27,7 +27,7 @@ class SubAdapter(private val item: ArrayList<ListDataWrapper>) :
             }
 
             R.layout.md_live_item -> {
-                MdLiveHolder(
+                CommonLiveHolder(
                     LayoutInflater.from(parent.context)
                         .inflate(R.layout.md_live_item, parent, false)
                 )
@@ -62,7 +62,7 @@ class SubAdapter(private val item: ArrayList<ListDataWrapper>) :
 
             R.layout.md_live_item -> {
                 val data = item[position].data as Live
-                (holder as MdLiveHolder).bindData(data)
+                (holder as CommonLiveHolder).bindData(data)
             }
 
             R.layout.category_item -> {
@@ -71,7 +71,7 @@ class SubAdapter(private val item: ArrayList<ListDataWrapper>) :
             }
 
             R.layout.streamer_list_item -> {
-                val data = item[position].data as ArrayList<*>
+                val data = item[position].data as List<*>
                 val streamer = data.map {
                     it as Streamer
                 }

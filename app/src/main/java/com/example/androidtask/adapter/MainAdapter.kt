@@ -10,15 +10,15 @@ import com.example.androidtask.data.Header
 import com.example.androidtask.data.ListDataType
 import com.example.androidtask.data.ListDataWrapper
 import com.example.androidtask.data.Live
+import com.example.androidtask.holder.CommonLiveHolder
 import com.example.androidtask.holder.HeaderHolder
-import com.example.androidtask.holder.SmLiveHolder
 
-class MainAdapter(private var list: ArrayList<ListDataWrapper>) :
+class MainAdapter(private var list: List<ListDataWrapper>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             R.layout.sm_live_item -> {
-                SmLiveHolder(
+                CommonLiveHolder(
                     LayoutInflater.from(parent.context)
                         .inflate(R.layout.sm_live_item, parent, false)
                 )
@@ -47,7 +47,7 @@ class MainAdapter(private var list: ArrayList<ListDataWrapper>) :
         when (holder.itemViewType) {
             R.layout.sm_live_item -> {
                 val data = list[position].data as Live
-                (holder as SmLiveHolder).bindData(data)
+                (holder as CommonLiveHolder).bindData(data)
             }
 
             R.layout.header_item -> {
@@ -56,9 +56,9 @@ class MainAdapter(private var list: ArrayList<ListDataWrapper>) :
             }
 
             R.layout.sub_recycler_item -> {
-                val parseList = (list[position].data as ArrayList<*>).map {
-                    ListDataWrapper(list[position].type, it)
-                } as ArrayList<ListDataWrapper>
+                val parseList = (list[position].data as List<*>).map {
+                    ListDataWrapper(list[position].type, it as Any)
+                }
                 val rvSub = (holder as Holder).rvSub
                 rvSub.adapter = SubAdapter(parseList)
                 rvSub.layoutManager = LinearLayoutManager(

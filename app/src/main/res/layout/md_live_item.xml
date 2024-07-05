@@ -6,7 +6,7 @@
     android:paddingHorizontal="15dp">
 
     <ImageView
-        android:id="@+id/iv_md_live_screen"
+        android:id="@+id/iv_live_screen"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:background="@drawable/container_round_box"
@@ -21,7 +21,7 @@
         app:tint="#5C000000" />
 
     <TextView
-        android:id="@+id/tv_md_live_badge"
+        android:id="@+id/tv_live_badge"
         style="@style/BoldTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_md_live_viewer"
+        android:id="@+id/tv_live_viewer"
         style="@style/BoldTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,13 +46,13 @@
         android:gravity="center_vertical"
         android:padding="4dp"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_md_live_badge"
-        app:layout_constraintStart_toEndOf="@id/tv_md_live_badge"
-        app:layout_constraintTop_toTopOf="@id/tv_md_live_badge"
+        app:layout_constraintBottom_toBottomOf="@id/tv_live_badge"
+        app:layout_constraintStart_toEndOf="@id/tv_live_badge"
+        app:layout_constraintTop_toTopOf="@id/tv_live_badge"
         tools:text="1,786" />
 
     <TextView
-        android:id="@+id/tv_md_live_title"
+        android:id="@+id/tv_live_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -60,12 +60,12 @@
         android:textColor="@color/live_title"
         android:textFontWeight="500"
         app:layout_constraintEnd_toStartOf="@id/btn_more"
-        app:layout_constraintStart_toStartOf="@id/iv_md_live_screen"
-        app:layout_constraintTop_toBottomOf="@id/iv_md_live_screen"
+        app:layout_constraintStart_toStartOf="@id/iv_live_screen"
+        app:layout_constraintTop_toBottomOf="@id/iv_live_screen"
         tools:text="라이브 방송 제목" />
 
     <ImageView
-        android:id="@+id/iv_md_live_profile"
+        android:id="@+id/iv_live_profile"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginTop="5dp"
@@ -74,11 +74,11 @@
         android:contentDescription="@string/img_profile"
         android:scaleType="centerCrop"
         android:src="@drawable/img_anonymous"
-        app:layout_constraintStart_toStartOf="@id/tv_md_live_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_md_live_title" />
+        app:layout_constraintStart_toStartOf="@id/tv_live_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_live_title" />
 
     <TextView
-        android:id="@+id/tv_md_live_streamer"
+        android:id="@+id/tv_live_streamer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -86,9 +86,9 @@
         android:textColor="@color/text_aside"
         android:textFontWeight="500"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/iv_md_live_profile"
-        app:layout_constraintStart_toEndOf="@id/iv_md_live_profile"
-        app:layout_constraintTop_toTopOf="@id/iv_md_live_profile"
+        app:layout_constraintBottom_toBottomOf="@id/iv_live_profile"
+        app:layout_constraintStart_toEndOf="@id/iv_live_profile"
+        app:layout_constraintTop_toTopOf="@id/iv_live_profile"
         tools:text="스트리머 이름" />
 
     <ImageView
@@ -98,12 +98,12 @@
         android:contentDescription="@string/img_verified"
         android:scaleType="centerInside"
         android:src="@drawable/img_verified_mark"
-        app:layout_constraintBottom_toBottomOf="@id/tv_md_live_streamer"
-        app:layout_constraintStart_toEndOf="@id/tv_md_live_streamer"
-        app:layout_constraintTop_toTopOf="@id/tv_md_live_streamer" />
+        app:layout_constraintBottom_toBottomOf="@id/tv_live_streamer"
+        app:layout_constraintStart_toEndOf="@id/tv_live_streamer"
+        app:layout_constraintTop_toTopOf="@id/tv_live_streamer" />
 
     <TextView
-        android:id="@+id/tv_md_live_tag_1"
+        android:id="@+id/tv_live_tag_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -113,12 +113,12 @@
         android:textColor="@color/live_tag_text"
         android:textFontWeight="500"
         android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="@id/iv_md_live_profile"
-        app:layout_constraintTop_toBottomOf="@id/iv_md_live_profile"
+        app:layout_constraintStart_toStartOf="@id/iv_live_profile"
+        app:layout_constraintTop_toBottomOf="@id/iv_live_profile"
         tools:text="태그 1" />
 
     <TextView
-        android:id="@+id/tv_md_live_tag_2"
+        android:id="@+id/tv_live_tag_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -128,13 +128,13 @@
         android:textColor="@color/live_tag_text"
         android:textFontWeight="500"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_md_live_tag_1"
-        app:layout_constraintStart_toEndOf="@id/tv_md_live_tag_1"
-        app:layout_constraintTop_toTopOf="@id/tv_md_live_tag_1"
+        app:layout_constraintBottom_toBottomOf="@id/tv_live_tag_1"
+        app:layout_constraintStart_toEndOf="@id/tv_live_tag_1"
+        app:layout_constraintTop_toTopOf="@id/tv_live_tag_1"
         tools:text="태그 2" />
 
     <TextView
-        android:id="@+id/tv_md_live_tag_3"
+        android:id="@+id/tv_live_tag_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -144,9 +144,9 @@
         android:textColor="@color/live_tag_text"
         android:textFontWeight="500"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_md_live_tag_2"
-        app:layout_constraintStart_toEndOf="@id/tv_md_live_tag_2"
-        app:layout_constraintTop_toTopOf="@id/tv_md_live_tag_2"
+        app:layout_constraintBottom_toBottomOf="@id/tv_live_tag_2"
+        app:layout_constraintStart_toEndOf="@id/tv_live_tag_2"
+        app:layout_constraintTop_toTopOf="@id/tv_live_tag_2"
         tools:text="태그 3" />
 
     <ImageButton
@@ -158,8 +158,8 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/ic_more"
         android:src="@drawable/ic_more"
-        app:layout_constraintEnd_toEndOf="@id/iv_md_live_screen"
-        app:layout_constraintTop_toBottomOf="@id/iv_md_live_screen"
+        app:layout_constraintEnd_toEndOf="@id/iv_live_screen"
+        app:layout_constraintTop_toBottomOf="@id/iv_live_screen"
         app:tint="@color/ico_inactive" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
