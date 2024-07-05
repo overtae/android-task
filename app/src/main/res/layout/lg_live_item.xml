@@ -1,116 +1,110 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="350dp"
-    android:layout_height="200dp"
-    android:layout_marginTop="20dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="365dp"
+    android:layout_height="240dp"
+    android:paddingHorizontal="15dp"
+    android:paddingVertical="20dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ImageView
+        android:id="@+id/iv_lg_live_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="15dp">
+        android:background="@drawable/container_round_box"
+        android:clipToOutline="true"
+        android:contentDescription="@string/img_live"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_live_1"
+        android:tintMode="src_atop"
+        app:tint="#5C000000" />
 
-        <ImageView
-            android:id="@+id/iv_lg_live_screen"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToOutline="true"
-            android:scaleType="centerCrop"
-            android:background="@drawable/container_round_box"
-            android:src="@drawable/img_live_01"
-            app:tint="#5C000000"
-            android:tintMode="src_atop" />
+    <TextView
+        android:id="@+id/tv_live_badge"
+        style="@style/BoldTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/container_chip"
+        android:backgroundTint="@color/live_badge_bg_live"
+        android:gravity="center_vertical"
+        android:padding="4dp"
+        android:text="@string/live"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_live_badge"
-            style="@style/BoldTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/container_chip"
-            android:backgroundTint="@color/live_badge_bg_live"
-            android:padding="3dp"
-            android:gravity="center_vertical"
-            android:textSize="11sp"
-            android:text="LIVE"
-            android:layout_margin="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tv_lg_live_viewer"
+        style="@style/BoldTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/container_chip"
+        android:backgroundTint="@color/live_badge_bg_viewer"
+        android:gravity="center_vertical"
+        android:padding="4dp"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_live_badge"
+        app:layout_constraintStart_toEndOf="@id/tv_live_badge"
+        app:layout_constraintTop_toTopOf="@id/tv_live_badge"
+        tools:text="280" />
 
-        <TextView
-            android:id="@+id/tv_lg_live_viewer"
-            style="@style/BoldTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/container_chip"
-            android:backgroundTint="@color/live_badge_bg_viewer"
-            android:padding="3dp"
-            android:gravity="center_vertical"
-            android:textSize="11sp"
-            android:text="280"
-            android:layout_marginStart="5dp"
-            app:layout_constraintStart_toEndOf="@id/tv_live_badge"
-            app:layout_constraintTop_toTopOf="@id/tv_live_badge"
-            app:layout_constraintBottom_toBottomOf="@id/tv_live_badge" />
+    <TextView
+        android:id="@+id/tv_lg_live_title"
+        style="@style/BoldTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@id/iv_lg_live_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="라이브 방송 제목 텍스트" />
 
-        <TextView
-            android:id="@+id/tv_lg_live_title"
-            style="@style/BoldTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="엘든링 dlc 노엉체"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/iv_lg_live_profile" />
+    <ImageView
+        android:id="@+id/iv_lg_live_profile"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/container_circle"
+        android:clipToOutline="true"
+        android:contentDescription="@string/img_profile"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_anonymous"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_lg_live_profile"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/container_circle"
-            android:src="@drawable/img_anonymous"
-            android:scaleType="centerCrop"
-            android:clipToOutline="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+    <TextView
+        android:id="@+id/tv_lg_live_streamer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:includeFontPadding="false"
+        android:text="@string/streamer_name"
+        android:textColor="@color/live_title"
+        android:textFontWeight="700"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_lg_live_profile"
+        app:layout_constraintStart_toEndOf="@id/iv_lg_live_profile"
+        app:layout_constraintTop_toTopOf="@id/iv_lg_live_profile"
+        tools:text="스트리머 이름" />
 
-        <TextView
-            android:id="@+id/tv_lg_live_streamer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/live_title"
-            android:text="찬우정 · "
-            android:textFontWeight="700"
-            android:includeFontPadding="false"
-            app:layout_constraintStart_toEndOf="@id/iv_lg_live_profile"
-            app:layout_constraintBottom_toBottomOf="@id/iv_lg_live_profile"
-            app:layout_constraintTop_toTopOf="@id/iv_lg_live_profile" />
+    <TextView
+        android:id="@+id/tv_lg_live_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:drawablePadding="4dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/primary"
+        android:textFontWeight="700"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/ic_game"
+        app:drawableTint="@color/primary"
+        app:layout_constraintBottom_toBottomOf="@id/tv_lg_live_streamer"
+        app:layout_constraintStart_toEndOf="@id/tv_lg_live_streamer"
+        app:layout_constraintTop_toTopOf="@id/tv_lg_live_streamer"
+        tools:text="게임 이름" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/iv_game_icon"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_game"
-            app:layout_constraintStart_toEndOf="@id/tv_lg_live_streamer"
-            app:layout_constraintTop_toTopOf="@id/tv_lg_live_streamer"
-            app:layout_constraintBottom_toBottomOf="@id/tv_lg_live_streamer" />
-
-        <TextView
-            android:id="@+id/tv_lg_live_game"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/primary"
-            android:text="엘든 링 황금 나무의 그림자"
-            android:textFontWeight="700"
-            android:includeFontPadding="false"
-            app:layout_constraintStart_toEndOf="@id/iv_game_icon"
-            app:layout_constraintBottom_toBottomOf="@id/iv_game_icon"
-            app:layout_constraintTop_toTopOf="@id/iv_game_icon" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
 

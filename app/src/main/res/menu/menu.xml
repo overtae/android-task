@@ -5,24 +5,24 @@
         android:id="@+id/page_live"
         android:enabled="true"
         android:icon="@drawable/ic_menu_live"
-        android:title="라이브"/>
+        android:title="@string/menu_live" />
 
     <item
         android:id="@+id/page_explore"
         android:enabled="true"
         android:icon="@drawable/ic_menu_explore"
-        android:title="탐색"/>
+        android:title="@string/menu_explore" />
 
     <item
         android:id="@+id/page_esports"
         android:enabled="true"
         android:icon="@drawable/ic_menu_esports"
-        android:title="e스포츠"/>
+        android:title="@string/menu_esports" />
 
     <item
         android:id="@+id/page_lounge"
         android:enabled="true"
         android:icon="@drawable/ic_menu_lounge"
-        android:title="라운지"/>
+        android:title="@string/menu_lounge" />
 
 </menu>
