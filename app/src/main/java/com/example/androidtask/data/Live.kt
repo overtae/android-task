@@ -8,37 +8,9 @@ data class Live(
     val streamer: String,
 ) {
     var game: String = ""
-    var screenImg: Int? = R.drawable.img_live_01
+    var screenImg: Int? = R.drawable.img_live_1
     var profileImg: Int? = R.drawable.img_anonymous
     var tags: List<String>? = listOf("", "", "")
-
-    // LgLive
-    constructor(
-        viewer: Int,
-        title: String,
-        streamer: String,
-        game: String,
-    ) : this(
-        viewer,
-        title,
-        streamer,
-    ) {
-        this.game = game
-    }
-
-    // SmLive
-    constructor(
-        viewer: Int,
-        title: String,
-        streamer: String,
-        tags: ArrayList<String>
-    ) : this(
-        viewer,
-        title,
-        streamer,
-    ) {
-        this.tags = tags
-    }
 
     // LgLive with Image
     constructor(
@@ -74,9 +46,5 @@ data class Live(
         this.screenImg = screenImg
         this.profileImg = profileImg
         this.tags = tags
-    }
-
-    override fun toString(): String {
-        return super.toString()
     }
 }

@@ -12,7 +12,6 @@ import com.example.androidtask.data.Header
 class HeaderHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     fun bindData(header: Header) {
         view.apply {
-
             val tvMore = view.findViewById<TextView>(R.id.tv_more)
             val tvHeader = view.findViewById<TextView>(R.id.tv_header)
             val builder = SpannableStringBuilder(header.text)
