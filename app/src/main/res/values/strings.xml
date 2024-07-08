@@ -24,10 +24,14 @@
     <string name="suggestion_game">%s 추천 라이브</string>
     <string name="suggestion_streamer">파트너 스트리머</string>
 
+    <!-- placeholder -->
+    <string name="placeholder">채널, 라이브, 동영상 검색</string>
+
     <!-- Image Description -->
-    <string name="ic_search">검색 메뉴 아이콘</string>
+    <string name="ic_search">검색 아이콘</string>
     <string name="ic_notification">알림 메뉴 아이콘</string>
     <string name="ic_more">더보기 메뉴 아이콘</string>
+    <string name="ic_close">닫기 아이콘</string>
     <string name="img_desc_category">카테고리 이미지</string>
     <string name="img_live">라이브 방송 이미지</string>
     <string name="img_profile">스트리머 프로필 이미지</string>
