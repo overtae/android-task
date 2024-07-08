@@ -1,6 +1,8 @@
 package com.example.androidtask
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +23,15 @@ class SearchActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.bottom_to_top, R.anim.none)
 
         findViewById<ImageView>(R.id.iv_close).setOnClickListener {
+            finish()
+            overridePendingTransition(R.anim.none, R.anim.top_to_bottom)
+        }
+        
+        findViewById<ImageView>(R.id.iv_search).setOnClickListener {
+            val intent = Intent(this@SearchActivity, MainActivity::class.java).apply {
+                putExtra(SEARCH_RESULT, findViewById<EditText>(R.id.et_search).text.toString())
+            }
+            setResult(RESULT_OK, intent)
             finish()
             overridePendingTransition(R.anim.none, R.anim.top_to_bottom)
         }

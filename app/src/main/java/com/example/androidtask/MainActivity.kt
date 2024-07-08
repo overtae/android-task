@@ -3,7 +3,10 @@ package com.example.androidtask
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -16,10 +19,13 @@ import com.example.androidtask.data.ListDataType
 import com.example.androidtask.data.ListDataWrapper
 import com.google.android.material.tabs.TabLayout
 
+const val SEARCH_RESULT = "search"
+
 class MainActivity : AppCompatActivity() {
     private val suggestionItems: ArrayList<ListDataWrapper> = arrayListOf()
     private val followingItems: ArrayList<ListDataWrapper> = arrayListOf()
     private lateinit var mainAdapter: MainAdapter
+    private lateinit var getSearchResult: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +55,21 @@ class MainActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
+        getSearchResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                println(it.resultCode)
+                if (it.resultCode == RESULT_OK) {
+                    val searchText = it.data?.getStringExtra(SEARCH_RESULT) ?: ""
+                    Toast.makeText(this@MainActivity, "검색어: $searchText", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    Toast.makeText(this@MainActivity, "검색어를 가져오지 못했습니다.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
         findViewById<ImageButton>(R.id.btn_search).setOnClickListener {
-            startActivity(Intent(this@MainActivity, SearchActivity::class.java))
+            getSearchResult.launch(Intent(this@MainActivity, SearchActivity::class.java))
         }
 
         findViewById<ImageButton>(R.id.btn_profile).setOnClickListener {
