@@ -12,6 +12,11 @@
     <string name="menu_esports">e스포츠</string>
     <string name="menu_lounge">라운지</string>
 
+    <!-- Popup Menu -->
+    <string name="popup_web">치지직 라운지</string>
+    <string name="popup_camera">영상 촬영</string>
+    <string name="popup_img_pick">사진 선택</string>
+
     <!-- Live -->
     <string name="live_count">라이브 %d개</string>
     <string name="live">LIVE</string>
@@ -23,6 +28,10 @@
     <string name="suggestion_like">좋아하실 것 같아요</string>
     <string name="suggestion_game">%s 추천 라이브</string>
     <string name="suggestion_streamer">파트너 스트리머</string>
+
+    <!-- Button Text -->
+    <string name="btn_camera">카메라</string>
+    <string name="btn_gallery">갤러리</string>
 
     <!-- placeholder -->
     <string name="placeholder">채널, 라이브, 동영상 검색</string>
@@ -36,6 +45,7 @@
     <string name="img_live">라이브 방송 이미지</string>
     <string name="img_profile">스트리머 프로필 이미지</string>
     <string name="img_verified">인증 마크 이미지</string>
+    <string name="img_upload">업로드 이미지</string>
 </resources>
 
 
