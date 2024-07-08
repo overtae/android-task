@@ -28,6 +28,7 @@
     <string name="suggestion_like">좋아하실 것 같아요</string>
     <string name="suggestion_game">%s 추천 라이브</string>
     <string name="suggestion_streamer">파트너 스트리머</string>
+    <string name="suggestion_upload">사진을 올려보세요</string>
 
     <!-- Button Text -->
     <string name="btn_camera">카메라</string>
