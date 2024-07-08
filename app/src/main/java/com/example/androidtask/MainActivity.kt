@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
 
         getSearchResult =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                println(it.resultCode)
                 if (it.resultCode == RESULT_OK) {
                     val searchText = it.data?.getStringExtra(SEARCH_RESULT) ?: ""
                     Toast.makeText(this@MainActivity, "검색어: $searchText", Toast.LENGTH_SHORT)
