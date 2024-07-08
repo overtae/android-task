@@ -6,11 +6,11 @@
 <h3 align="center">치지직 앱 클론 코딩</h3>
 <br><br>
 
-## 소개
+## ⚡ 소개
 
 > 네이버에서 운영하는 인터넷 방송 플랫폼 ["치지직"](https://chzzk.naver.com/) 앱의 UI만 클론 
 
-## 주요 화면
+## ⚡ 주요 화면
 
 <div align=center width="100%">
 <table width="100%">
@@ -27,7 +27,7 @@
 </table>
 </div>
 
-## 사용 기술
+## ⚡ 사용 기술
 
 * `TabLayout`, `BottomNavigationView`, `Menu`: 화면 상하단 메뉴 구현
 * `RecyclerView`: 반복되는 뷰 관리
@@ -35,7 +35,7 @@
   - 명시적: 메인 → 검색 화면 넘어갈 때 사용
   - 암묵적: 기기의 카메라를 호출할 때 사용
 
-## 트러블 슈팅
+## ⚡ 트러블 슈팅
 
 > ⚠️ 이미지 피커 사용시 권한 중에서 `gms.metadata.ModuleDependencies`를 찾을 수 없다는 에러 발생
 >
@@ -44,4 +44,43 @@
 > ⚠️ 세로 `RecyclerView` 내부에 가로 `RecyclerView`를 어떻게 포함시키지?
 > 
 > ⇒ ✅ 가로 RecyclerView 레이아웃을 세로 RecyclerView가 렌더링하게 구현
+
+## ⚡ 폴더 구조
+
+```
+│  MainActivity.kt
+│  SearchActivity.kt
+│  StreamerView.kt
+│  UploadActivity.kt
+│
+├─adapter
+│      MainAdapter.kt
+│      SubAdapter.kt
+│
+├─data
+│      Category.kt
+│      DataManager.kt
+│      Header.kt
+│      ListDataType.kt
+│      ListDataWrapper.kt
+│      Live.kt
+│      Streamer.kt
+│
+└─holder
+        CategoryHolder.kt
+        CommonLiveHolder.kt
+        HeaderHolder.kt
+        LgLiveHolder.kt
+        StreamerHolder.kt
+```
+
+## ⚡ 참고
+
+> **✨ 폰트**
+>
+> [![image](https://github.com/overtae/android-task/assets/51291185/178e1480-6f02-443b-870f-5b42a62188fd)](https://corp.gmarket.com/fonts/)
+
+> **✨ 색상**
+>
+> ![image](https://github.com/overtae/android-task/assets/51291185/7b4706ba-9e25-45d9-9a3b-a53df3df542b)
 
