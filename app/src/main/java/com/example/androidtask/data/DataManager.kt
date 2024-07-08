@@ -33,7 +33,7 @@ object DataManager {
                 getString(R.string.streamer_name, "파카"),
                 "PUBG: 배틀 그라운드",
                 R.drawable.img_live_2,
-                R.drawable.img_profile_2
+                R.drawable.img_profile_6
             ),
             Live(
                 1024,
