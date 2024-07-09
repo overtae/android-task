@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_product"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="16dp">
+
+    <ImageView
+        android:id="@+id/iv_product"
+        android:layout_width="140dp"
+        android:layout_height="0dp"
+        android:background="@drawable/container_round_box"
+        android:clipToOutline="true"
+        android:src="@drawable/img_sample1"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_product"
+        app:layout_constraintTop_toTopOf="@id/iv_product"
+        tools:text="상품 이름은 최대 두 줄이고, 그래도 넘어가면 뒷 부분에 ...으로 처리해주세요. 상품 이름은 최대 두 줄이고, 그래도 넘어가면 뒷 부분에 ...으로 처리해주세요." />
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="주소명"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="50,000원"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tv_address"
+        app:layout_constraintTop_toBottomOf="@id/tv_address" />
+
+    <ImageView
+        android:id="@+id/iv_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/ic_comment"
+        app:layout_constraintBottom_toBottomOf="@id/tv_chat"
+        app:layout_constraintEnd_toStartOf="@id/tv_chat"
+        app:layout_constraintTop_toTopOf="@id/tv_chat" />
+
+    <TextView
+        android:id="@+id/tv_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="20"
+
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_like"
+        app:layout_constraintEnd_toStartOf="@id/iv_like"
+        app:layout_constraintTop_toTopOf="@id/iv_like" />
+
+    <ImageView
+        android:id="@+id/iv_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/ic_heart_outlined"
+        app:layout_constraintBottom_toBottomOf="@id/tv_like"
+        app:layout_constraintEnd_toStartOf="@id/tv_like"
+        app:layout_constraintTop_toTopOf="@id/tv_like" />
+
+    <TextView
+        android:id="@+id/tv_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
