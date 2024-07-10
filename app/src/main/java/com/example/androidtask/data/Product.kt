@@ -1,5 +1,9 @@
 package com.example.androidtask.data
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Product(
     val id: Int, // 번호
     val image: Int, // 이미지 파일명
@@ -10,5 +14,4 @@ data class Product(
     val address: String, // 주소
     val likes: Int, // 좋아요
     val chat: Int, // 채팅
-) {
-}
+) : Parcelable
