@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">android-task</string>
+    <string name="app_name">사과 마켓</string>
+
+    <string name="temperature">%.1f°C</string>
+    <string name="price">%,d 원</string>
+    <string name="manner_temperature"><u>매너온도</u></string>
+    <string name="address">내배캠동</string>
+    <string name="chat">채팅하기</string>
+
+    <!-- image description -->
+    <string name="ic_bottom_arrow">아래 방향 화살표 아이콘</string>
+    <string name="ic_back">뒤로가기 아이콘</string>
+    <string name="ic_notification">알림 아이콘</string>
+    <string name="ic_chat">채팅 아이콘</string>
+    <string name="ic_like">좋아요 아이콘</string>
+    <string name="img_product">상품 이미지</string>
+    <string name="img_profile">사용자 프로필 이미지</string>
+    <string name="img_manner_temperature">매너 온도 이미지</string>
 </resources>
