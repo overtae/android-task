@@ -53,7 +53,15 @@ class MainActivity : AppCompatActivity() {
         val adapter = ProductAdapter(this, products)
 
         with(binding.rvMain) {
-            this.adapter = adapter
+            this.adapter = adapter.apply {
+                itemClickListener = object : ProductAdapter.ItemClickListener {
+                    override fun onClick(view: View, item: Product) {
+                        val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                        intent.putExtra(PRODUCT, item)
+                        getLikedResult.launch(intent)
+                    }
+                }
+            }
             addItemDecoration(
                 DividerItemDecoration(
                     this@MainActivity,
@@ -61,13 +69,6 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             layoutManager = LinearLayoutManager(this@MainActivity)
-        }
-        adapter.itemClickListener = object : ProductAdapter.ItemClickListener {
-            override fun onClick(view: View, position: Int) {
-                val intent = Intent(this@MainActivity, DetailActivity::class.java)
-                intent.putExtra(PRODUCT, products[position])
-                getLikedResult.launch(intent)
-            }
         }
 
         getLikedResult =
