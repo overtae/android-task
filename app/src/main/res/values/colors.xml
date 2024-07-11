@@ -2,4 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light_gray">#aaa</color>
+    <color name="gray">#777</color>
+
+    <!-- theme -->
+    <color name="primary">#E07341</color>
+
+    <!-- manner temperature -->
+    <color name="grade_0">#878b93</color>
+    <color name="grade_1">#3375ad</color>
+    <color name="grade_2">#459ae5</color>
+    <color name="grade_3">#63c498</color>
+    <color name="grade_4">#eec075</color>
+    <color name="grade_5">#ed7738</color>
+
 </resources>
