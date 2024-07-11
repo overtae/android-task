@@ -14,6 +14,7 @@
         android:layout_height="0dp"
         android:background="@drawable/container_round_box"
         android:clipToOutline="true"
+        android:contentDescription="@string/img_product"
         android:src="@drawable/img_sample1"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,51 +40,57 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="주소명"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_name" />
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        tools:text="주소명" />
 
     <TextView
         android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="50,000원"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tv_address"
-        app:layout_constraintTop_toBottomOf="@id/tv_address" />
+        app:layout_constraintTop_toBottomOf="@id/tv_address"
+        tools:text="50,000원" />
 
     <ImageView
         android:id="@+id/iv_chat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_marginEnd="4dp"
+        android:contentDescription="@string/ic_chat"
         android:src="@drawable/ic_comment"
         app:layout_constraintBottom_toBottomOf="@id/tv_chat"
         app:layout_constraintEnd_toStartOf="@id/tv_chat"
-        app:layout_constraintTop_toTopOf="@id/tv_chat" />
+        app:layout_constraintTop_toTopOf="@id/tv_chat"
+        app:tint="@color/gray" />
 
     <TextView
         android:id="@+id/tv_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="20"
-
+        android:textColor="@color/gray"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/iv_like"
         app:layout_constraintEnd_toStartOf="@id/iv_like"
-        app:layout_constraintTop_toTopOf="@id/iv_like" />
+        app:layout_constraintTop_toTopOf="@id/iv_like"
+        tools:text="20" />
 
-    <ImageView
+    <ToggleButton
         android:id="@+id/iv_like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_marginEnd="4dp"
-        android:src="@drawable/ic_heart_outlined"
+        android:background="@drawable/selector_toggle_like"
+        android:backgroundTint="@drawable/selector_toggle_like"
+        android:clickable="false"
+        android:textOff=""
+        android:textOn=""
         app:layout_constraintBottom_toBottomOf="@id/tv_like"
         app:layout_constraintEnd_toStartOf="@id/tv_like"
         app:layout_constraintTop_toTopOf="@id/tv_like" />
@@ -92,9 +99,10 @@
         android:id="@+id/tv_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="20"
+        android:textColor="@color/gray"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="20" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
