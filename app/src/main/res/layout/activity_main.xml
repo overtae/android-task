@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <TextView
@@ -52,5 +53,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_locale" />
+
+    <ImageView
+        android:id="@+id/iv_to_top"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="24dp"
+        android:background="@drawable/selector_to_top"
+        android:contentDescription="@string/ic_to_top"
+        android:padding="10dp"
+        android:src="@drawable/ic_to_top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

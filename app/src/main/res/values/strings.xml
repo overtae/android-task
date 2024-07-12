@@ -13,6 +13,7 @@
     <string name="ic_notification">알림 아이콘</string>
     <string name="ic_chat">채팅 아이콘</string>
     <string name="ic_like">좋아요 아이콘</string>
+    <string name="ic_to_top">위로가기 아이콘</string>
     <string name="img_product">상품 이미지</string>
     <string name="img_profile">사용자 프로필 이미지</string>
     <string name="img_manner_temperature">매너 온도 이미지</string>
