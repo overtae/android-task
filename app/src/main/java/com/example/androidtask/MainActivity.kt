@@ -11,7 +11,7 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -23,6 +23,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtask.adapter.ProductAdapter
 import com.example.androidtask.data.Product
 import com.example.androidtask.data.ProductManager
@@ -32,6 +33,7 @@ const val PRODUCT = "product"
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val productAdapter by lazy { ProductAdapter(this).apply { submitList(ProductManager.getProducts()) } }
     private lateinit var getLikedResult: ActivityResultLauncher<Intent>
 
     // 알림
@@ -49,40 +51,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val products = ProductManager.getProducts()
-        val adapter = ProductAdapter(this, products)
-
-        with(binding.rvMain) {
-            this.adapter = adapter.apply {
-                itemClickListener = object : ProductAdapter.ItemClickListener {
-                    override fun onClick(view: View, item: Product) {
-                        val intent = Intent(this@MainActivity, DetailActivity::class.java)
-                        intent.putExtra(PRODUCT, item)
-                        getLikedResult.launch(intent)
-                    }
-                }
-            }
-            addItemDecoration(
-                DividerItemDecoration(
-                    this@MainActivity,
-                    DividerItemDecoration.VERTICAL
-                )
-            )
-            layoutManager = LinearLayoutManager(this@MainActivity)
-        }
-
-        getLikedResult =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == RESULT_OK) {
-                    result.data?.getParcelableExtra(PRODUCT, Product::class.java)?.let {
-                        adapter.notifyItemChanged(it.id - 1)
-                    }
-                }
-            }
+        initProducts()
+        initScrollToTopButton()
 
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                showFinishConfirmDialog()
+                alertDialog("종료", "정말 종료하시겠습니까?", "종료") { finish() }
             }
         })
 
@@ -92,23 +66,85 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showFinishConfirmDialog() {
-        val builder = AlertDialog.Builder(this).apply {
-            setTitle("종료")
-            setMessage("정말 종료하시겠습니까?")
-            setIcon(R.drawable.ic_comment)
-        }
+    private fun initProducts() {
+        getLikedResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    productAdapter.submitList(ProductManager.getProducts())
+                }
+            }
 
+        with(binding.rvMain) {
+            adapter = productAdapter.apply {
+                itemClickListener = object : ProductAdapter.ItemClickListener {
+                    override fun onClick(item: Product) {
+                        val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                        intent.putExtra(PRODUCT, item)
+                        getLikedResult.launch(intent)
+                    }
+
+                    override fun onLongClick(item: Product) {
+                        alertDialog("삭제", "정말 삭제하시겠습니까?", "삭제") {
+                            ProductManager.deleteProduct(item)
+                            productAdapter.submitList(ProductManager.getProducts().toList())
+                        }
+                    }
+                }
+            }
+            addItemDecoration(
+                DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL)
+            )
+            layoutManager = LinearLayoutManager(this@MainActivity)
+        }
+    }
+
+    private fun initScrollToTopButton() {
+        with(binding.rvMain) {
+            setOnClickListener { smoothScrollToPosition(0) }
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                var isVisible = false
+                val fadeOut = AnimationUtils.loadAnimation(this@MainActivity, R.anim.fade_out)
+                val fadeIn = AnimationUtils.loadAnimation(this@MainActivity, R.anim.fade_in)
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    binding.ivToTop.apply {
+                        if (!recyclerView.canScrollVertically(-1)) {
+                            startAnimation(fadeOut)
+                            isVisible = false
+                        }
+
+                        if (!isVisible && dy > 0) {
+                            startAnimation(fadeIn)
+                            isVisible = true
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    private fun alertDialog(
+        title: String,
+        message: String,
+        positiveButtonText: String,
+        action: () -> Unit
+    ) {
         val listener = DialogInterface.OnClickListener { _, p1 ->
             when (p1) {
-                DialogInterface.BUTTON_POSITIVE -> finish()
+                DialogInterface.BUTTON_POSITIVE -> action()
             }
         }
 
-        builder.setPositiveButton("종료", listener)
-        builder.setNegativeButton("취소", listener)
-
-        builder.show()
+        AlertDialog.Builder(this).apply {
+            setTitle(title)
+            setMessage(message)
+            setIcon(R.drawable.ic_comment)
+        }.apply {
+            setPositiveButton(positiveButtonText, listener)
+            setNegativeButton("취소", listener)
+        }.show()
     }
 
     private fun sendNotification() {

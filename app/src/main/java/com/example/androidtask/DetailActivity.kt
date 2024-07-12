@@ -31,16 +31,10 @@ class DetailActivity : AppCompatActivity() {
 
     private fun initBackButtonAction() {
         binding.ivBack.setOnClickListener {
-            val intent = Intent(this@DetailActivity, MainActivity::class.java)
-
-            product?.let {
-                val currentProduct = ProductManager.handleLike(it.id, binding.ivLike.isChecked)
-
-                // Intent로 전달받은 상품과 현재 표시되고 있는 상품이 다르다면 (좋아요 상태가 바뀌었다면)
-                if (it != currentProduct) {
-                    intent.putExtra(PRODUCT, currentProduct)
-                    setResult(RESULT_OK, intent)
-                }
+            // Intent로 전달받은 상품과 현재 표시되고 있는 상품이 다르다면 (좋아요 상태가 바뀌었다면)
+            if (ProductManager.handleLike(product?.id ?: -1, binding.ivLike.isChecked)) {
+                val intent = Intent(this@DetailActivity, MainActivity::class.java)
+                setResult(RESULT_OK, intent)
             }
             finish()
         }
