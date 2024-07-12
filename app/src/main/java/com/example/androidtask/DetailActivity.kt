@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.androidtask.data.Product
 import com.example.androidtask.data.ProductManager
 import com.example.androidtask.databinding.ActivityDetailBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlin.random.Random
 
 class DetailActivity : AppCompatActivity() {
@@ -26,17 +27,25 @@ class DetailActivity : AppCompatActivity() {
         }
 
         initProduct()
-        initBackButtonAction()
+        init()
     }
 
-    private fun initBackButtonAction() {
-        binding.ivBack.setOnClickListener {
-            // Intent로 전달받은 상품과 현재 표시되고 있는 상품이 다르다면 (좋아요 상태가 바뀌었다면)
-            if (ProductManager.handleLike(product?.id ?: -1, binding.ivLike.isChecked)) {
-                val intent = Intent(this@DetailActivity, MainActivity::class.java)
-                setResult(RESULT_OK, intent)
+    private fun init() {
+        with(binding) {
+            ivBack.setOnClickListener {
+                // Intent로 전달받은 상품과 현재 표시되고 있는 상품이 다르다면 (좋아요 상태가 바뀌었다면)
+                if (ProductManager.handleLike(product?.id ?: -1, binding.ivLike.isChecked)) {
+                    val intent = Intent(this@DetailActivity, MainActivity::class.java)
+                    setResult(RESULT_OK, intent)
+                }
+                finish()
             }
-            finish()
+
+            ivLike.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    Snackbar.make(root, "관심 목록에 추가되었습니다.", Snackbar.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
