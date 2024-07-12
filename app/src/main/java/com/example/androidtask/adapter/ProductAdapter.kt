@@ -2,17 +2,27 @@ package com.example.androidtask.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtask.R
 import com.example.androidtask.data.Product
 import com.example.androidtask.databinding.ItemProductBinding
 
-class ProductAdapter(private val context: Context, private val items: List<Product>) :
-    RecyclerView.Adapter<ProductAdapter.Holder>() {
+class ProductAdapter(private val context: Context) :
+    ListAdapter<Product, ProductAdapter.Holder>(object : DiffUtil.ItemCallback<Product>() {
+        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+            return oldItem == newItem
+        }
+    }) {
     interface ItemClickListener {
-        fun onClick(view: View, item: Product)
+        fun onClick(item: Product)
+        fun onLongClick(item: Product)
     }
 
     var itemClickListener: ItemClickListener? = null
@@ -22,12 +32,8 @@ class ProductAdapter(private val context: Context, private val items: List<Produ
         return Holder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
     }
 
     inner class Holder(binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -40,7 +46,11 @@ class ProductAdapter(private val context: Context, private val items: List<Produ
         private val likeIcon = binding.ivLike
 
         fun bind(item: Product) {
-            itemView.setOnClickListener { itemClickListener?.onClick(it, item) }
+            itemView.setOnClickListener { itemClickListener?.onClick(item) }
+            itemView.setOnLongClickListener {
+                itemClickListener?.onLongClick(item)
+                true
+            }
             image.setImageResource(item.image)
             name.text = item.name
             address.text = item.address

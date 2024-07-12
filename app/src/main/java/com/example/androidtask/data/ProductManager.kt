@@ -7,19 +7,21 @@ object ProductManager {
 
     fun getProducts(): List<Product> {
         if (!::products.isInitialized) init()
-        return products
+        return products.map { it.copy() }
     }
 
-    fun handleLike(id: Int, isLiked: Boolean): Product? {
+    fun handleLike(id: Int, isLiked: Boolean): Boolean {
         getProductById(id)?.let {
             if (it.isLiked != isLiked) {
                 it.isLiked = isLiked
                 it.likes += if (isLiked) +1 else -1
             }
-            return it
+            return true
         }
-        return null
+        return false
     }
+
+    fun deleteProduct(item: Product) = products.remove(item)
 
     private fun getProductById(id: Int) = products.find { it.id == id }
 
