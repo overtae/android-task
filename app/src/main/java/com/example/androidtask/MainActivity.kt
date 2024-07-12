@@ -99,9 +99,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initScrollToTopButton() {
-        with(binding.rvMain) {
-            setOnClickListener { smoothScrollToPosition(0) }
-            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        with(binding) {
+            ivToTop.setOnClickListener { rvMain.smoothScrollToPosition(0) }
+            rvMain.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 var isVisible = false
                 val fadeOut = AnimationUtils.loadAnimation(this@MainActivity, R.anim.fade_out)
                 val fadeIn = AnimationUtils.loadAnimation(this@MainActivity, R.anim.fade_in)
@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
-                    binding.ivToTop.apply {
+                    ivToTop.apply {
                         if (!recyclerView.canScrollVertically(-1)) {
                             startAnimation(fadeOut)
                             isVisible = false
