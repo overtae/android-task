@@ -15,7 +15,7 @@ import com.example.androidtask.holder.CommonLiveHolder
 import com.example.androidtask.holder.LgLiveHolder
 import com.example.androidtask.holder.StreamerHolder
 
-class SubAdapter(private val item: List<ListDataWrapper>) :
+class SubAdapter(private val item: List<ListDataWrapper>, val onClick: (live: Live) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -58,11 +58,13 @@ class SubAdapter(private val item: List<ListDataWrapper>) :
             R.layout.lg_live_item -> {
                 val data = item[position].data as Live
                 (holder as LgLiveHolder).bindData(data)
+                holder.itemView.setOnClickListener { onClick(data) }
             }
 
             R.layout.md_live_item -> {
                 val data = item[position].data as Live
                 (holder as CommonLiveHolder).bindData(data)
+                holder.itemView.setOnClickListener { onClick(data) }
             }
 
             R.layout.category_item -> {
