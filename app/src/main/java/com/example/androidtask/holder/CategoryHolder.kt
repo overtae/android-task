@@ -32,17 +32,17 @@ class CategoryHolder(private val view: View) : RecyclerView.ViewHolder(view) {
             }
 
             tvName.text = builder
-            tvViewer.text = formatNumber(category.viewer)
+            tvViewer.text = category.viewer.formatNumber()
             tvLiveCount.text = view.context.getString(R.string.live_count, category.liveCount)
 
             ivScreen.setImageResource(category.img)
         }
     }
+}
 
-    private fun formatNumber(number: Int): String {
-        return when (number) {
-            in 0..9999 -> DecimalFormat("#,###").format(number)
-            else -> "${number / 1000}만"
-        }
+fun Int.formatNumber(): String {
+    return when (this) {
+        in 0..9999 -> DecimalFormat("#,###").format(this)
+        else -> "${this / 1000}만"
     }
 }
