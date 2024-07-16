@@ -65,8 +65,6 @@
     <string name="img_profile">스트리머 프로필 이미지</string>
     <string name="img_verified">인증 마크 이미지</string>
     <string name="img_upload">업로드 이미지</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
 
 
