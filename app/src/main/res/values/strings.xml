@@ -22,6 +22,11 @@
     <string name="live">LIVE</string>
     <string name="streamer_name">%s ·</string>
 
+    <!-- Detail Live -->
+    <string name="live_viewer">%s명 시청 중</string>
+    <string name="live_time">%s 스트리밍 중</string>
+    <string name="live_cheese">%.1f만</string>
+
     <!-- Header Text -->
     <string name="see_all">전체보기</string>
     <string name="suggestion_live">이 방송 어때요?</string>
@@ -33,20 +38,35 @@
     <!-- Button Text -->
     <string name="btn_camera">카메라</string>
     <string name="btn_gallery">갤러리</string>
+    <string name="btn_follow">팔로우</string>
 
     <!-- placeholder -->
     <string name="placeholder">채널, 라이브, 동영상 검색</string>
+    <string name="chatting">채팅을 입력해주세요</string>
 
     <!-- Image Description -->
     <string name="ic_search">검색 아이콘</string>
     <string name="ic_notification">알림 메뉴 아이콘</string>
     <string name="ic_more">더보기 메뉴 아이콘</string>
     <string name="ic_close">닫기 아이콘</string>
+    <string name="ic_screen_share">화면 공유 아이콘</string>
+    <string name="ic_pip">화면 속 화면 아이콘</string>
+    <string name="ic_share">공유 아이콘</string>
+    <string name="ic_full_screen">전체 화면 아이콘</string>
+    <string name="ic_follow">팔로우 아이콘</string>
+    <string name="ic_donate_rank">후원 랭킹 아이콘</string>
+    <string name="ic_cheese">치즈 아이콘</string>
+    <string name="ic_emoji">이모지 아이콘</string>
+    <string name="ic_setting">설정 아이콘</string>
+    <string name="ic_play">재생 아이콘</string>
+    <string name="ic_fan">팬 아이콘</string>
     <string name="img_desc_category">카테고리 이미지</string>
     <string name="img_live">라이브 방송 이미지</string>
     <string name="img_profile">스트리머 프로필 이미지</string>
     <string name="img_verified">인증 마크 이미지</string>
     <string name="img_upload">업로드 이미지</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
 
 

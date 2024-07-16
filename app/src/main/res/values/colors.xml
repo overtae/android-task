@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary">#00ffa3</color>
+    <color name="secondary">#efda19</color>
 
     <color name="bg_dark">#141517</color>
 
@@ -25,4 +26,12 @@
     <color name="live_tag_text">#9da5b6</color>
 
     <color name="card_bg">#4D2E3033</color>
+
+    <!-- 채팅 닉네임 -->
+    <color name="chat_0">#F9ED69</color>
+    <color name="chat_1">#F08A5D</color>
+    <color name="chat_2">#B83B5E</color>
+    <color name="chat_3">#6A2C70</color>
+    <color name="chat_4">#00ADB5</color>
+    <color name="chat_5">#F6F6F6</color>
 </resources>

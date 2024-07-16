@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark"
+    tools:context=".DetailActivity">
+
+    <!-- live screen -->
+    <ImageView
+        android:id="@+id/iv_live_screen"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:contentDescription="@string/img_live"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_live_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_live_screen_dim"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:contentDescription="@string/img_live"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_gradient_dim"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/container_circle"
+        android:backgroundTint="#99000000"
+        android:contentDescription="@string/ic_play"
+        android:paddingVertical="10dp"
+        android:paddingStart="13dp"
+        android:paddingEnd="10dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_play"
+        app:layout_constraintBottom_toBottomOf="@id/iv_live_screen"
+        app:layout_constraintEnd_toEndOf="@id/iv_live_screen"
+        app:layout_constraintStart_toStartOf="@id/iv_live_screen"
+        app:layout_constraintTop_toTopOf="@id/iv_live_screen" />
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/ic_close"
+        android:rotation="-90"
+        android:src="@drawable/ic_chevron_left"
+        app:layout_constraintStart_toStartOf="@id/iv_live_screen"
+        app:layout_constraintTop_toTopOf="@id/iv_live_screen"
+        app:tint="@color/ico_active" />
+
+    <TextView
+        android:id="@+id/tv_live_badge"
+        style="@style/BoldTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/container_chip"
+        android:backgroundTint="@color/live_badge_bg_live"
+        android:gravity="center_vertical"
+        android:padding="4dp"
+        android:text="@string/live"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_close"
+        app:layout_constraintStart_toEndOf="@id/iv_close"
+        app:layout_constraintTop_toTopOf="@id/iv_close" />
+
+    <ImageView
+        android:id="@+id/iv_screen_share"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="12dp"
+        android:contentDescription="@string/ic_screen_share"
+        android:src="@drawable/ic_screen_share"
+        app:layout_constraintEnd_toStartOf="@id/iv_pip"
+        app:layout_constraintTop_toTopOf="@id/iv_live_screen"
+        app:tint="@color/ico_active" />
+
+    <ImageView
+        android:id="@+id/iv_pip"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="12dp"
+        android:contentDescription="@string/ic_pip"
+        android:src="@drawable/ic_pip"
+        app:layout_constraintEnd_toStartOf="@id/iv_share"
+        app:layout_constraintTop_toTopOf="@id/iv_live_screen"
+        app:tint="@color/ico_active" />
+
+    <ImageView
+        android:id="@+id/iv_share"
+        android:layout_width="24dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/ic_share"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_share"
+        app:layout_constraintBottom_toBottomOf="@id/iv_more"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toStartOf="@id/iv_more"
+        app:layout_constraintTop_toTopOf="@id/iv_more"
+        app:tint="@color/ico_active" />
+
+    <ImageView
+        android:id="@+id/iv_more"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginVertical="12dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/ic_more"
+        android:rotation="-90"
+        android:src="@drawable/ic_more"
+        app:layout_constraintEnd_toEndOf="@id/iv_live_screen"
+        app:layout_constraintTop_toTopOf="@id/iv_live_screen"
+        app:tint="@color/ico_active" />
+
+    <ImageView
+        android:id="@+id/iv_full_screen"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/ic_full_screen"
+        android:src="@drawable/ic_full_screen"
+        app:layout_constraintBottom_toBottomOf="@id/iv_live_screen"
+        app:layout_constraintEnd_toEndOf="@id/iv_live_screen"
+        app:tint="@color/ico_active" />
+
+    <!-- live information -->
+    <ImageView
+        android:id="@+id/iv_streamer_profile_bg"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/container_gradient_border"
+        android:clipToOutline="true"
+        android:contentDescription="@string/img_profile"
+        app:layout_constraintStart_toStartOf="@id/iv_live_screen"
+        app:layout_constraintTop_toBottomOf="@id/iv_live_screen" />
+
+    <ImageView
+        android:id="@+id/iv_streamer_profile"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/container_circle"
+        android:clipToOutline="true"
+        android:contentDescription="@string/img_profile"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_anonymous"
+        app:layout_constraintStart_toStartOf="@id/iv_streamer_profile_bg"
+        app:layout_constraintTop_toTopOf="@id/iv_streamer_profile_bg" />
+
+    <TextView
+        android:id="@+id/tv_live_title"
+        style="@style/BoldTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:maxLines="2"
+        android:textColor="@color/live_title"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/iv_live_screen"
+        app:layout_constraintStart_toEndOf="@id/iv_streamer_profile"
+        app:layout_constraintTop_toTopOf="@id/iv_streamer_profile"
+        tools:text="라이브 방송 제목" />
+
+    <TextView
+        android:id="@+id/tv_live_streamer"
+        style="@style/BoldTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/live_tag_text"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@id/tv_live_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_live_title"
+        tools:text="스트리머 이름" />
+
+    <ImageView
+        android:id="@+id/iv_verified_mark"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="5dp"
+        android:contentDescription="@string/img_verified"
+        android:scaleType="centerInside"
+        android:src="@drawable/img_verified_mark"
+        app:layout_constraintBottom_toBottomOf="@id/tv_live_streamer"
+        app:layout_constraintStart_toEndOf="@id/tv_live_streamer"
+        app:layout_constraintTop_toTopOf="@id/tv_live_streamer" />
+
+    <View
+        android:id="@+id/iv_dot_1"
+        android:layout_width="2dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/container_circle"
+        android:backgroundTint="@color/text_aside"
+        app:layout_constraintBottom_toBottomOf="@id/iv_verified_mark"
+        app:layout_constraintStart_toEndOf="@id/iv_verified_mark"
+        app:layout_constraintTop_toTopOf="@id/iv_verified_mark" />
+
+    <TextView
+        android:id="@+id/tv_live_game"
+        style="@style/BoldTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:drawablePadding="4dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/primary"
+        android:textSize="13sp"
+        app:drawableStartCompat="@drawable/ic_game"
+        app:drawableTint="@color/primary"
+        app:layout_constraintBottom_toBottomOf="@id/iv_dot_1"
+        app:layout_constraintStart_toEndOf="@id/iv_dot_1"
+        app:layout_constraintTop_toTopOf="@id/iv_dot_1"
+        tools:text="게임 이름" />
+
+    <TextView
+        android:id="@+id/tv_live_tag_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/container_chip_border"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="2dp"
+        android:textColor="@color/live_tag_text"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="@id/tv_live_streamer"
+        app:layout_constraintTop_toBottomOf="@id/tv_live_streamer"
+        tools:text="태그 1" />
+
+    <TextView
+        android:id="@+id/tv_live_tag_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/container_chip_border"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="2dp"
+        android:textColor="@color/live_tag_text"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_live_tag_1"
+        app:layout_constraintStart_toEndOf="@id/tv_live_tag_1"
+        app:layout_constraintTop_toTopOf="@id/tv_live_tag_1"
+        tools:text="태그 2" />
+
+    <TextView
+        android:id="@+id/tv_live_tag_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/container_chip_border"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="2dp"
+        android:textColor="@color/live_tag_text"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_live_tag_2"
+        app:layout_constraintStart_toEndOf="@id/tv_live_tag_2"
+        app:layout_constraintTop_toTopOf="@id/tv_live_tag_2"
+        tools:text="태그 3" />
+
+    <TextView
+        android:id="@+id/tv_live_viewer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_aside"
+        android:textFontWeight="500"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/tv_live_tag_1"
+        app:layout_constraintTop_toBottomOf="@id/tv_live_tag_1"
+        tools:text="6,253명 시청 중" />
+
+    <View
+        android:id="@+id/iv_dot_2"
+        android:layout_width="2dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/container_circle"
+        android:backgroundTint="@color/text_aside"
+        app:layout_constraintBottom_toBottomOf="@id/tv_live_viewer"
+        app:layout_constraintStart_toEndOf="@id/tv_live_viewer"
+        app:layout_constraintTop_toTopOf="@id/tv_live_viewer" />
+
+    <TextView
+        android:id="@+id/tv_live_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:textColor="@color/text_aside"
+        android:textFontWeight="500"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_dot_2"
+        app:layout_constraintStart_toEndOf="@id/iv_dot_2"
+        app:layout_constraintTop_toTopOf="@id/iv_dot_2"
+        tools:text="17:53:40 스트리밍 중" />
+
+    <LinearLayout
+        android:id="@+id/btn_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/container_round_full_box"
+        android:backgroundTint="@color/primary"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        app:layout_constraintStart_toStartOf="@id/tv_live_viewer"
+        app:layout_constraintTop_toBottomOf="@id/tv_live_viewer">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/ic_follow"
+            android:src="@drawable/ic_heart"
+            app:tint="@color/black" />
+
+        <TextView
+            style="@style/BoldTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="2dp"
+            android:text="@string/btn_follow"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line_live_info_end"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginVertical="10dp"
+        android:background="@color/live_tag_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_follow" />
+
+    <!-- donation list -->
+    <ImageView
+        android:id="@+id/iv_supporter_1"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/ic_donate_rank"
+        android:src="@drawable/ic_donate_1"
+        app:layout_constraintBottom_toBottomOf="@id/tv_supporter_1"
+        app:layout_constraintEnd_toStartOf="@id/tv_supporter_1"
+        app:layout_constraintTop_toTopOf="@id/tv_supporter_1" />
+
+    <TextView
+        android:id="@+id/tv_supporter_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_main"
+        android:textFontWeight="600"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/tv_supporter_2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line_live_info_end"
+        tools:text="1등 닉네임" />
+
+    <ImageView
+        android:id="@+id/iv_cheese_1"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/ic_cheese"
+        android:src="@drawable/ic_cheese_colored"
+        app:layout_constraintBottom_toBottomOf="@id/tv_cheese_1"
+        app:layout_constraintEnd_toStartOf="@id/tv_cheese_1"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/iv_supporter_1"
+        app:layout_constraintTop_toTopOf="@id/tv_cheese_1" />
+
+    <TextView
+        android:id="@+id/tv_cheese_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/secondary"
+        android:textFontWeight="700"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/tv_supporter_1"
+        app:layout_constraintStart_toEndOf="@id/iv_cheese_1"
+        app:layout_constraintTop_toBottomOf="@id/tv_supporter_1"
+        tools:text="4만" />
+
+    <ImageView
+        android:id="@+id/iv_supporter_2"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/ic_donate_rank"
+        android:src="@drawable/ic_donate_2"
+        app:layout_constraintBottom_toBottomOf="@id/tv_supporter_2"
+        app:layout_constraintEnd_toStartOf="@id/tv_supporter_2"
+        app:layout_constraintTop_toTopOf="@id/tv_supporter_2" />
+
+    <TextView
+        android:id="@+id/tv_supporter_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_main"
+        android:textFontWeight="600"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_supporter_3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/tv_supporter_1"
+        app:layout_constraintTop_toBottomOf="@id/line_live_info_end"
+        tools:text="2등 닉네임" />
+
+    <ImageView
+        android:id="@+id/iv_cheese_2"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/ic_cheese"
+        android:src="@drawable/ic_cheese_colored"
+        app:layout_constraintBottom_toBottomOf="@id/tv_cheese_2"
+        app:layout_constraintEnd_toStartOf="@id/tv_cheese_2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/iv_supporter_2"
+        app:layout_constraintTop_toTopOf="@id/tv_cheese_2" />
+
+    <TextView
+        android:id="@+id/tv_cheese_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/secondary"
+        android:textFontWeight="700"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/tv_supporter_2"
+        app:layout_constraintStart_toEndOf="@id/iv_cheese_2"
+        app:layout_constraintTop_toBottomOf="@id/tv_supporter_2"
+        tools:text="4만" />
+
+    <ImageView
+        android:id="@+id/iv_supporter_3"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/ic_donate_rank"
+        android:src="@drawable/ic_donate_3"
+        app:layout_constraintBottom_toBottomOf="@id/tv_supporter_3"
+        app:layout_constraintEnd_toStartOf="@id/tv_supporter_3"
+        app:layout_constraintTop_toTopOf="@id/tv_supporter_3" />
+
+    <TextView
+        android:id="@+id/tv_supporter_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_main"
+        android:textFontWeight="600"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/tv_supporter_2"
+        app:layout_constraintTop_toBottomOf="@id/line_live_info_end"
+        tools:text="3등 닉네임" />
+
+    <ImageView
+        android:id="@+id/iv_cheese_3"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/ic_cheese"
+        android:src="@drawable/ic_cheese_colored"
+        app:layout_constraintBottom_toBottomOf="@id/tv_cheese_3"
+        app:layout_constraintEnd_toStartOf="@id/tv_cheese_3"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/iv_supporter_3"
+        app:layout_constraintTop_toTopOf="@id/tv_cheese_3" />
+
+    <TextView
+        android:id="@+id/tv_cheese_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/secondary"
+        android:textFontWeight="700"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/tv_supporter_3"
+        app:layout_constraintStart_toEndOf="@id/iv_cheese_3"
+        app:layout_constraintTop_toBottomOf="@id/tv_supporter_3"
+        tools:text="4만" />
+
+    <View
+        android:id="@+id/line_chat_start"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginVertical="10dp"
+        android:background="@color/live_tag_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_cheese_1" />
+
+    <!-- chatting list -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_chat"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintBottom_toTopOf="@id/layout_chat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line_chat_start"
+        tools:listitem="@layout/chat_item" />
+
+    <!-- chatting input -->
+    <LinearLayout
+        android:id="@+id/layout_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@color/bg_dark"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:id="@+id/line_chat_end"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/live_tag_bg" />
+
+        <LinearLayout
+            android:id="@+id/layout_chat_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/container_round_full_box"
+            android:backgroundTint="@color/live_tag_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/container_circle"
+                android:backgroundTint="@color/live_tag_border"
+                android:contentDescription="@string/ic_setting"
+                android:padding="3dp"
+                android:src="@drawable/ic_setting"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="@color/live_tag_text" />
+
+            <EditText
+                android:id="@+id/et_chat"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@drawable/container_none"
+                android:hint="@string/chatting"
+                android:imeOptions="actionSend"
+                android:inputType="textNoSuggestions"
+                android:paddingHorizontal="8dp"
+                android:textColor="@color/live_tag_text"
+                android:textColorHint="@color/live_tag_border"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="@string/ic_cheese"
+                android:src="@drawable/ic_cheese"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="@color/live_tag_text" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="@string/ic_emoji"
+                android:src="@drawable/ic_smile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="@color/live_tag_text" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

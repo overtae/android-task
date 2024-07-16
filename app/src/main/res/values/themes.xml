@@ -1,8 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Playground" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:textViewStyle">@style/customTextViewFontStyle</item>
-        <item name="android:buttonStyle">@style/customButtonFontStyle</item>
+        <!--        <item name="android:fontFamily">@font/gmarket_sans_medium</item>-->
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
@@ -20,6 +19,12 @@
         <item name="android:fontFamily">@font/gmarket_sans_medium</item>
         <item name="android:textSize">12sp</item>
         <item name="android:fontWeight">500</item>
+    </style>
+
+    <style name="MediumTextStyle">
+        <item name="android:fontFamily">@font/gmarket_sans_medium</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="BoldTextStyle">
