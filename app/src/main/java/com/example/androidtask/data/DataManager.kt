@@ -22,34 +22,67 @@ object DataManager {
             Live(
                 2346,
                 "롤체 마스터 노방종",
-                getString(R.string.streamer_name, "오리너구리9"),
+                Streamer(
+                    getString(R.string.streamer_name, "오리너구리9"),
+                    R.drawable.img_profile_1,
+                ),
+                "01:24:31",
                 "리그 오브 레전드",
                 R.drawable.img_live_1,
-                R.drawable.img_profile_1
+                arrayListOf("리그 오브 레전드", "롤", "lol"),
+                arrayListOf(
+                    Supporter("태영이", 4.0),
+                    Supporter("태일이", 2.3),
+                    Supporter("태삼이", 1.0),
+                ),
             ),
             Live(
                 1280,
                 "오늘 1등 못하면 접음(진짜임)",
-                getString(R.string.streamer_name, "파카"),
+                Streamer(
+                    getString(R.string.streamer_name, "파카"),
+                    R.drawable.img_profile_6,
+                ),
+                "01:24:31",
                 "PUBG: 배틀 그라운드",
                 R.drawable.img_live_2,
-                R.drawable.img_profile_6
+                arrayListOf("배틀 그라운드", "배그", ""),
+                arrayListOf(
+                    Supporter("큰손이야", 4.0),
+                    Supporter("이등인데", 2.3),
+                    Supporter("최고다", 1.0),
+                ),
             ),
             Live(
                 1024,
                 "방구석 프로기의 코틀린 쯔뿌리기",
-                getString(R.string.streamer_name, "프로기"),
+                Streamer(
+                    getString(R.string.streamer_name, "프로기"),
+                    R.drawable.img_profile_3,
+                ),
+                "01:24:31",
                 "talk",
                 R.drawable.img_live_3,
-                R.drawable.img_profile_3
+                arrayListOf("코틀린", "", ""),
+                arrayListOf(
+                    Supporter("고양이", 6.3),
+                    Supporter("강아지", 4.8),
+                ),
             ),
             Live(
                 1,
                 "꼼이 산책 브이로그",
-                getString(R.string.streamer_name, "이강진"),
+                Streamer(
+                    getString(R.string.streamer_name, "이강진"),
+                    R.drawable.img_profile_4,
+                ),
+                "01:24:31",
                 "talk",
                 R.drawable.img_live_4,
-                R.drawable.img_profile_4
+                arrayListOf("브이로그", "", ""),
+                arrayListOf(
+                    Supporter("이강진", 0.1),
+                ),
             ),
         )
     }
@@ -59,49 +92,73 @@ object DataManager {
             Live(
                 14587,
                 "싱글 좀보이드",
-                "한동숙",
+                Streamer(
+                    "한동숙",
+                    R.drawable.img_profile_3,
+                ),
+                "01:24:31",
+                "프로젝트 좀보이드",
                 R.drawable.img_live_5,
-                R.drawable.img_profile_3,
                 arrayListOf("프로젝트 좀보이드", "", ""),
             ),
             Live(
                 8659,
                 "닥터스톤 애니메이션 같이보기",
-                "풍월량",
+                Streamer(
+                    "풍월량",
+                    R.drawable.img_profile_2,
+                ),
+                "01:24:31",
+                "닥터스톤",
                 R.drawable.img_live_3,
-                R.drawable.img_profile_2,
                 arrayListOf("talk", "종합게임", "신작")
             ),
             Live(
                 13,
                 "실음과 희망편 절망편 on",
-                "사이테",
+                Streamer(
+                    "사이테",
+                    R.drawable.img_profile_4,
+                ),
+                "01:24:31",
+                "",
                 R.drawable.img_live_1,
-                R.drawable.img_profile_4,
                 arrayListOf("talk", "실용음악", "작곡")
             ),
             Live(
                 3390,
                 "반갑습니다",
-                "괴물쥐",
+                Streamer(
+                    "괴물쥐",
+                    R.drawable.img_profile_5,
+                ),
+                "01:24:31",
+                "",
                 R.drawable.img_live_2,
-                R.drawable.img_profile_5,
                 arrayListOf("리그 오브 레전드", "", "")
             ),
             Live(
                 3641,
                 "스빠룬키 가지광대5퀘스런 ㅇㅅㅇ",
-                "녹두로",
+                Streamer(
+                    "녹두로",
+                    R.drawable.img_profile_1,
+                ),
+                "01:24:31",
+                "스팰렁키 2",
                 R.drawable.img_live_4,
-                R.drawable.img_profile_1,
                 arrayListOf("스펠렁키 2", "ㅇㅅㅇ", "녹두로")
             ),
             Live(
                 280,
                 "철면수심과 BIO INC.",
-                "침착맨",
+                Streamer(
+                    "침착맨",
+                    R.drawable.img_anonymous,
+                ),
+                "01:24:31",
+                "",
                 R.drawable.img_live_3,
-                R.drawable.img_anonymous,
                 arrayListOf("", "", "")
             ),
         )

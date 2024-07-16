@@ -21,11 +21,11 @@ class LgLiveHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
             tvViewer.text = DecimalFormat("#,###").format(live.viewer)
             tvTitle.text = live.title
-            tvStreamer.text = live.streamer
+            tvStreamer.text = live.streamer.name
             tvGame.text = live.game
 
-            ivScreen.setImageResource(live.screenImg!!)
-            ivProfile.setImageResource(live.profileImg!!)
+            ivScreen.setImageResource(live.screenImg)
+            ivProfile.setImageResource(live.streamer.profileImg)
         }
     }
 }

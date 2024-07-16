@@ -26,14 +26,14 @@ class CommonLiveHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
             tvViewer.text = DecimalFormat("#,###").format(live.viewer)
             tvTitle.text = live.title
-            tvStreamer.text = live.streamer
+            tvStreamer.text = live.streamer.name
 
-            ivScreen.setImageResource(live.screenImg!!)
-            ivProfile.setImageResource(live.profileImg!!)
+            ivScreen.setImageResource(live.screenImg)
+            ivProfile.setImageResource(live.streamer.profileImg)
 
             tvTags.mapIndexed { i, tvTag ->
-                if (live.tags!![i] == "") tvTag.visibility = View.GONE
-                tvTag.text = live.tags!![i]
+                if (live.tags[i] == "") tvTag.visibility = View.GONE
+                tvTag.text = live.tags[i]
             }
         }
     }
