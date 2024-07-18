@@ -1,4 +1,4 @@
-package com.example.androidtask
+package com.example.androidtask.activity
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.androidtask.R
 
 class UploadActivity : AppCompatActivity() {
     private val getTakePicturePreview =

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_dark"
     android:paddingTop="10dp"
-    tools:context=".UploadActivity">
+    tools:context=".activity.UploadActivity">
 
     <ImageView
         android:id="@+id/iv_close"

@@ -1,4 +1,4 @@
-package com.example.androidtask
+package com.example.androidtask.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.androidtask.R
 import com.example.androidtask.adapter.ViewPagerAdapter
 import com.example.androidtask.data.DataManager
 import com.google.android.material.tabs.TabLayout

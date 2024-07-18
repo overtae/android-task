@@ -1,4 +1,4 @@
-package com.example.androidtask
+package com.example.androidtask.activity
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -16,6 +16,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidtask.R
 import com.example.androidtask.adapter.ChatAdapter
 import com.example.androidtask.data.ChatManager
 import com.example.androidtask.data.Live

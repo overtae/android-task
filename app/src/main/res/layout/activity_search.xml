@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_dark"
     android:paddingTop="10dp"
-    tools:context=".SearchActivity">
+    tools:context=".activity.SearchActivity">
 
     <ImageView
         android:id="@+id/iv_close"

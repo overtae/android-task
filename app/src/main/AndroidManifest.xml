@@ -20,10 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Playground">
         <activity
-            android:name=".UploadActivity"
+            android:name=".activity.UploadActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".activity.DetailActivity"
             android:exported="false" />
 
         <service
@@ -41,10 +41,10 @@
         </service>
 
         <activity
-            android:name=".SearchActivity"
+            android:name=".activity.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
