@@ -108,10 +108,10 @@
         android:background="@android:color/transparent"
         app:itemActiveIndicatorStyle="@null"
         app:itemIconSize="35dp"
-        app:itemIconTint="@drawable/menu_color_selector"
+        app:itemIconTint="@drawable/selector_menu_color"
         app:itemTextAppearanceActive="@style/MenuTextStyle"
         app:itemTextAppearanceInactive="@style/MenuTextStyle"
-        app:itemTextColor="@drawable/menu_color_selector"
+        app:itemTextColor="@drawable/selector_menu_color"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu" />
