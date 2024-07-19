@@ -33,17 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         DataManager.init(this)
-
-        val viewPager = findViewById<androidx.viewpager2.widget.ViewPager2>(R.id.vp_main)
-        viewPager.adapter = ViewPagerAdapter(this)
-        val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
-
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            when (position) {
-                0 -> tab.text = getString(R.string.tab_recommend)
-                1 -> tab.text = getString(R.string.tab_following)
-            }
-        }.attach()
+        setFragment()
 
         getSearchResult =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -64,5 +54,18 @@ class MainActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.btn_profile).setOnClickListener {
             startActivity(Intent(this@MainActivity, UploadActivity::class.java))
         }
+    }
+
+    private fun setFragment() {
+        val viewPager = findViewById<androidx.viewpager2.widget.ViewPager2>(R.id.vp_main)
+        viewPager.adapter = ViewPagerAdapter(this)
+        val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when (position) {
+                0 -> tab.text = getString(R.string.tab_recommend)
+                1 -> tab.text = getString(R.string.tab_following)
+            }
+        }.attach()
     }
 }
