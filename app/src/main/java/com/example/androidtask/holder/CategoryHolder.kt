@@ -1,6 +1,5 @@
 package com.example.androidtask.holder
 
-import android.icu.text.DecimalFormat
 import android.text.SpannableStringBuilder
 import android.text.style.ImageSpan
 import android.view.View
@@ -9,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtask.R
 import com.example.androidtask.data.Category
+import com.example.androidtask.util.formatNumber
 
 class CategoryHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     fun bindData(category: Category) {
@@ -37,12 +37,5 @@ class CategoryHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
             ivScreen.setImageResource(category.img)
         }
-    }
-}
-
-fun Int.formatNumber(): String {
-    return when (this) {
-        in 0..9999 -> DecimalFormat("#,###").format(this)
-        else -> "${this / 1000}만"
     }
 }
