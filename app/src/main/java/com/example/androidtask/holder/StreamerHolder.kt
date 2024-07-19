@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtask.R
-import com.example.androidtask.StreamerView
+import com.example.androidtask.view.StreamerView
 import com.example.androidtask.data.Streamer
 
 
