@@ -39,6 +39,7 @@
     <string name="btn_camera">카메라</string>
     <string name="btn_gallery">갤러리</string>
     <string name="btn_follow">팔로우</string>
+    <string name="btn_following">팔로잉</string>
 
     <!-- placeholder -->
     <string name="placeholder">채널, 라이브, 동영상 검색</string>
