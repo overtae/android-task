@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_streamer_profile_bg"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/container_gray_border"
+        android:clipToOutline="true"
+        android:contentDescription="@string/img_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_streamer_profile"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/container_circle"
+        android:clipToOutline="true"
+        android:contentDescription="@string/img_profile"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_anonymous"
+        app:layout_constraintStart_toStartOf="@id/iv_streamer_profile_bg"
+        app:layout_constraintTop_toTopOf="@id/iv_streamer_profile_bg" />
+
+    <TextView
+        android:id="@+id/tv_streamer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:bufferType="spannable"
+        android:ellipsize="end"
+        android:includeFontPadding="false"
+        android:maxWidth="67dp"
+        android:maxLines="2"
+        android:textAlignment="center"
+        android:textColor="@color/text_main"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/iv_streamer_profile_bg"
+        app:layout_constraintStart_toStartOf="@id/iv_streamer_profile_bg"
+        app:layout_constraintTop_toBottomOf="@id/iv_streamer_profile_bg"
+        tools:text="스트리머 이름스트리머 이름스트리머 이름스트리머 이름" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
