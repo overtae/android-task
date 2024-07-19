@@ -4,9 +4,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_sub"
+    <com.example.androidtask.util.NestedScrollableHost
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.example.androidtask.util.NestedScrollableHost>
 
 </LinearLayout>
