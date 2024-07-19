@@ -64,7 +64,7 @@ class FollowingFragment : Fragment() {
 
         // followed streamer list
         listItem.add(ListDataWrapper(ListDataType.TYPE_HEADER, Header("스트리머", "")))
-        listItem.add(ListDataWrapper(ListDataType.TYPE_FOLLOWING, User.followingList))
+        listItem.add(ListDataWrapper(ListDataType.TYPE_FOLLOWING, User.followingList.clone()))
 
         return listItem
     }
