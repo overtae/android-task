@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_dark"
+    android:fitsSystemWindows="true"
     tools:context=".activity.DetailActivity">
 
     <!-- live screen -->
@@ -32,6 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/iv_play"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/container_circle"
@@ -324,14 +326,19 @@
         app:layout_constraintStart_toStartOf="@id/tv_live_viewer"
         app:layout_constraintTop_toBottomOf="@id/tv_live_viewer">
 
-        <ImageView
+        <ToggleButton
+            android:id="@+id/tb_follow"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="@drawable/selector_follow_btn"
+            android:backgroundTint="@drawable/selector_follow_btn"
+            android:clickable="false"
             android:contentDescription="@string/ic_follow"
-            android:src="@drawable/ic_heart"
-            app:tint="@color/black" />
+            android:textOff=""
+            android:textOn="" />
 
         <TextView
+            android:id="@+id/tv_follow"
             style="@style/BoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

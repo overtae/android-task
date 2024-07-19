@@ -6,7 +6,7 @@ import com.example.androidtask.R
 object DataManager {
     lateinit var lgLiveList: List<Live>
     lateinit var commonLiveList: List<Live>
-
+    
     lateinit var categoryList: List<Category>
     lateinit var streamerList: List<List<Streamer>>
 

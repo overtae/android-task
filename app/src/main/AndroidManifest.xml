@@ -24,7 +24,8 @@
             android:exported="false" />
         <activity
             android:name=".activity.DetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <service
             android:name="com.google.android.gms.metadata.ModuleDependencies"
