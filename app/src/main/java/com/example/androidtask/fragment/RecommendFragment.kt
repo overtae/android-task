@@ -9,47 +9,64 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtask.activity.DetailActivity
-import com.example.androidtask.activity.LIVE
 import com.example.androidtask.R
 import com.example.androidtask.adapter.MainAdapter
 import com.example.androidtask.data.DataManager
 import com.example.androidtask.data.Header
 import com.example.androidtask.data.ListDataType
 import com.example.androidtask.data.ListDataWrapper
+import com.example.androidtask.data.User
+
+private const val LIVE = "live"
 
 class RecommendFragment : Fragment() {
-    private val listItem: ArrayList<ListDataWrapper> = arrayListOf()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initListItems()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.layout_list, container, false)
-        val rvMain = view.findViewById<RecyclerView>(R.id.rv_main)
-
-        val mainAdapter = MainAdapter(listItem) { live ->
-            val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra(LIVE, live)
-            startActivity(intent)
-        }
-        rvMain.adapter = mainAdapter
-        rvMain.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-        return view
-    }
-
     companion object {
         @JvmStatic
         fun newInstance() = RecommendFragment()
     }
 
-    private fun initListItems() {
+    private lateinit var mainAdapter: MainAdapter
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.layout_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView(view)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mainAdapter.submitList(getListItem().toList())
+    }
+
+    private fun initView(view: View) {
+        val rvMain = view.findViewById<RecyclerView>(R.id.rv_main)
+        mainAdapter = MainAdapter { live ->
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra(LIVE, live)
+            startActivity(intent)
+        }.apply { submitList(getListItem()) }
+        rvMain.adapter = mainAdapter
+        rvMain.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    }
+
+    private fun getListItem(): ArrayList<ListDataWrapper> {
+        val listItem: ArrayList<ListDataWrapper> = arrayListOf()
+
         listItem.add(ListDataWrapper(ListDataType.TYPE_LARGE_LIVE, DataManager.lgLiveList))
+
+        // following live list
+        if (User.followingList.isNotEmpty()) {
+            listItem.add(
+                ListDataWrapper(ListDataType.TYPE_HEADER, Header("팔로잉 채널 라이브", ""))
+            )
+            listItem.add(ListDataWrapper(ListDataType.TYPE_MEDIUM_LIVE, User.followingList.clone()))
+        }
 
         // small live list
         listItem.add(
@@ -81,5 +98,7 @@ class RecommendFragment : Fragment() {
             ListDataWrapper(ListDataType.TYPE_HEADER, Header("파트너 스트리머", ""))
         )
         listItem.add(ListDataWrapper(ListDataType.TYPE_STREAMER, DataManager.streamerList))
+
+        return listItem
     }
 }

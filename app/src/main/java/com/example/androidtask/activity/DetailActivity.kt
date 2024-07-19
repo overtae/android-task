@@ -1,31 +1,28 @@
 package com.example.androidtask.activity
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
-import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtask.R
 import com.example.androidtask.adapter.ChatAdapter
 import com.example.androidtask.data.ChatManager
 import com.example.androidtask.data.Live
-import com.example.androidtask.holder.formatNumber
+import com.example.androidtask.data.User
+import com.example.androidtask.util.formatNumber
 import java.util.Timer
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var timer: Timer
-    private val live by lazy { intent.getParcelableExtra(LIVE, Live::class.java) }
     private val chatList by lazy { ChatManager.chatList }
     private val adapter by lazy { ChatAdapter().apply { submitList(chatList) } }
 
@@ -33,14 +30,15 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_detail)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val live = intent.getParcelableExtra(LIVE, Live::class.java) ?: return
+        val btnFollow = findViewById<LinearLayout>(R.id.btn_follow)
+        btnFollow.setOnClickListener {
+            if (User.isFollowed(live)) User.unFollow(live) else User.follow(live)
+            handleFollow(User.isFollowed(live))
         }
 
-        init()
-        handleInputChat()
+        init(live)
 
         val rvChat = findViewById<RecyclerView>(R.id.rv_chat)
         rvChat.adapter = adapter
@@ -67,36 +65,33 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleInputChat() {
-        val target = findViewById<LinearLayout>(R.id.layout_chat)
-        val rootView = findViewById<View>(android.R.id.content)
-        rootView.viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            private var isKeyboardShown = false
-
-            override fun onGlobalLayout() {
-                val r = Rect()
-                rootView.getWindowVisibleDisplayFrame(r)
-                val heightDiff = rootView.bottom - r.bottom
-
-                isKeyboardShown = heightDiff > 100
-                if (isKeyboardShown) {
-                    target.y = r.bottom - 160f
-                } else {
-                    target.y = rootView.height - 270f
-                }
-            }
-        })
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         timer.cancel()
         ChatManager.clearChat { adapter.submitList(chatList.toList()) }
     }
 
-    private fun init() {
-        live?.let {
+    private fun handleFollow(isFollowed: Boolean) {
+        val btnFollow = findViewById<LinearLayout>(R.id.btn_follow)
+        val tvFollow = findViewById<TextView>(R.id.tv_follow)
+        val tbFollow = findViewById<ToggleButton>(R.id.tb_follow)
+
+        if (isFollowed) {
+            btnFollow.backgroundTintList = getColorStateList(R.color.live_tag_bg)
+            tbFollow.isChecked = true
+            tvFollow.setTextColor(getColor(R.color.live_tag_text))
+            tvFollow.text = getString(R.string.btn_following)
+        } else {
+            btnFollow.backgroundTintList = getColorStateList(R.color.primary)
+            tbFollow.isChecked = false
+            tvFollow.setTextColor(getColor(R.color.black))
+            tvFollow.text = getString(R.string.btn_follow)
+        }
+    }
+
+    private fun init(live: Live) {
+        handleFollow(User.isFollowed(live))
+        live.let {
             findViewById<ImageView>(R.id.iv_close).setOnClickListener { finish() }
 
             findViewById<ImageView>(R.id.iv_live_screen).setImageResource(it.screenImg)
