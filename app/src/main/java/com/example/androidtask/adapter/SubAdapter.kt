@@ -12,6 +12,7 @@ import com.example.androidtask.data.Live
 import com.example.androidtask.data.Streamer
 import com.example.androidtask.holder.CategoryHolder
 import com.example.androidtask.holder.CommonLiveHolder
+import com.example.androidtask.holder.FollowingHolder
 import com.example.androidtask.holder.LgLiveHolder
 import com.example.androidtask.holder.StreamerHolder
 
@@ -37,6 +38,13 @@ class SubAdapter(private val item: List<ListDataWrapper>, val onClick: (live: Li
                 StreamerHolder(
                     LayoutInflater.from(parent.context)
                         .inflate(R.layout.streamer_list_item, parent, false)
+                )
+            }
+
+            R.layout.followed_streamer_item -> {
+                FollowingHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.followed_streamer_item, parent, false)
                 )
             }
 
@@ -80,6 +88,11 @@ class SubAdapter(private val item: List<ListDataWrapper>, val onClick: (live: Li
 
                 (holder as StreamerHolder).bindData(streamer)
             }
+
+            R.layout.followed_streamer_item -> {
+                val data = item[position].data as Live
+                (holder as FollowingHolder).bindData(data.streamer)
+            }
         }
     }
 
@@ -88,6 +101,7 @@ class SubAdapter(private val item: List<ListDataWrapper>, val onClick: (live: Li
             ListDataType.TYPE_LARGE_LIVE -> R.layout.lg_live_item
             ListDataType.TYPE_MEDIUM_LIVE -> R.layout.md_live_item
             ListDataType.TYPE_STREAMER -> R.layout.streamer_list_item
+            ListDataType.TYPE_FOLLOWING -> R.layout.followed_streamer_item
             else -> R.layout.category_item
         }
     }
