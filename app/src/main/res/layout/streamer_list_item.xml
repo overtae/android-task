@@ -2,7 +2,7 @@
     android:id="@+id/linear_streamer"
     android:layout_width="350dp"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
+    android:layout_margin="10dp"
     android:background="@drawable/container_round_box"
     android:backgroundTint="@color/card_bg"
     android:orientation="vertical">

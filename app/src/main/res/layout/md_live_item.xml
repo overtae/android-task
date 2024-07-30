@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="280dp"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="15dp">
+    android:paddingHorizontal="10dp">
 
     <ImageView
         android:id="@+id/iv_live_screen"
