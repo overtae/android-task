@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">android-task</string>
+
+    <!-- Bottom Navigation Menu -->
+    <string name="nav_search">이미지 검색</string>
+    <string name="nav_bookmark">내 보관함</string>
+
+    <!-- Search Fragment -->
+    <string name="search">검색</string>
+    <string name="search_hint">검색어를 입력해주세요.</string>
+
+    <!-- Shared Preference -->
+    <string name="preference_file_key">search_file_key</string>
+
+    <!-- Image Description -->
+    <string name="thumbnail">썸네일</string>
+
 </resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_thumbnail"
+        android:layout_width="180dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/thumbnail"
+        android:src="@drawable/img_sample"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <TextView
+        android:id="@+id/tv_site_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/iv_thumbnail"
+        app:layout_constraintStart_toStartOf="@id/iv_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/iv_thumbnail"
+        tools:text="제목" />
+
+    <TextView
+        android:id="@+id/tv_datetime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/iv_thumbnail"
+        app:layout_constraintStart_toStartOf="@id/iv_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/tv_site_name"
+        tools:text="날짜" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
