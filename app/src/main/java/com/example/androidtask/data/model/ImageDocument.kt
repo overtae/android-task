@@ -1,24 +1,8 @@
-package com.example.androidtask.data.remote
+package com.example.androidtask.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ImageResponse(
-    @SerializedName("documents")
-    val documents: List<Document>?,
-    @SerializedName("meta")
-    val meta: Meta?,
-)
-
-data class Meta(
-    @SerializedName("is_end")
-    val isEnd: Boolean?,
-    @SerializedName("pageable_count")
-    val pageableCount: Int?,
-    @SerializedName("total_count")
-    val totalCount: Int?
-)
-
-data class Document(
+data class ImageDocument(
     @SerializedName("collection")
     val collection: String?,
     @SerializedName("datetime")

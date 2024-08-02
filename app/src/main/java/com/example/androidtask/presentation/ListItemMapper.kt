@@ -1,13 +1,14 @@
 package com.example.androidtask.presentation
 
-import com.example.androidtask.data.remote.Document
+import com.example.androidtask.data.model.ImageDocument
 
-fun List<Document>.toListItem(): List<ListItem> {
+fun List<ImageDocument>.toListItem(): List<ListItem> {
     return this.map {
         ListItem(
             thumbnailUrl = it.thumbnailUrl ?: "",
             siteName = it.displaySitename ?: "",
-            datetime = it.datetime ?: ""
+            datetime = it.datetime ?: "",
+            isBookmarked = false,
         )
     }
 }

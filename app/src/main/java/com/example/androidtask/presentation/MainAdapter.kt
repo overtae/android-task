@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.androidtask.data.repository.BookmarkRepository
+import com.example.androidtask.data.viewmodel.BookmarkViewModel
 import com.example.androidtask.databinding.ItemSearchResultBinding
 import com.example.androidtask.util.toFormattedDatetime
 
@@ -32,9 +34,8 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
         fun bind(item: ListItem) = with(item) {
             siteNameTextView.text = siteName
             datetimeTextView.text = datetime.toFormattedDatetime()
-
-
-
+            bookmarkToggleButton.isChecked =
+                BookmarkViewModel(BookmarkRepository(itemView.context)).isBookmarked(item)
             Glide.with(thumbnailImageView.context)
                 .load(thumbnailUrl)
                 .into(thumbnailImageView)

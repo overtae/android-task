@@ -4,4 +4,5 @@ data class ListItem(
     val thumbnailUrl: String,
     val siteName: String,
     val datetime: String,
+    var isBookmarked: Boolean = false
 )

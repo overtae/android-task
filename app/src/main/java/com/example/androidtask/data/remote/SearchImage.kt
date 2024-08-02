@@ -1,5 +1,6 @@
 package com.example.androidtask.data.remote
 
+import com.example.androidtask.data.model.ImageResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

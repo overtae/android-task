@@ -1,6 +1,6 @@
 package com.example.androidtask.data.repository
 
-import com.example.androidtask.data.remote.ImageResponse
+import com.example.androidtask.data.model.ImageResponse
 
 interface ImageRepository {
     suspend fun getImageList(searchText: String): ImageResponse

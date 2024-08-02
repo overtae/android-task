@@ -34,6 +34,10 @@ class ImageViewModel(private val repository: ImageRepository = ImageRepositoryIm
         }
     }
 
+    fun updateBookmarkState(list: List<ListItem>) {
+        _searchResult.value = list
+    }
+
     private fun handleException(e: Throwable) {
         when (e) {
             is HttpException -> {
