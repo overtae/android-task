@@ -1,6 +1,7 @@
 package com.example.androidtask.network
 
 import com.example.androidtask.BuildConfig
+import com.example.androidtask.data.remote.SearchImage
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,7 +12,7 @@ import kotlin.jvm.Throws
 
 object NetworkClient {
     private const val BASE_URL = "https://dapi.kakao.com/v2/search/"
-    val kakaoNetwork: NetworkInterface by lazy { getClient().create(NetworkInterface::class.java) }
+    val kakaoNetwork: SearchImage by lazy { getClient().create(SearchImage::class.java) }
 
     private fun getClient(): Retrofit {
         return Retrofit.Builder()
