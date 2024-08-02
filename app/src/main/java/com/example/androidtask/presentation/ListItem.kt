@@ -2,6 +2,7 @@ package com.example.androidtask.presentation
 
 sealed class ListItem {
     data class ImageItem(
+        val uuid: String,
         val thumbnailUrl: String,
         val siteName: String,
         val datetime: String,
@@ -9,6 +10,7 @@ sealed class ListItem {
     ) : ListItem()
 
     data class VideoItem(
+        val uuid: String,
         val thumbnail: String,
         val title: String,
         val datetime: String,

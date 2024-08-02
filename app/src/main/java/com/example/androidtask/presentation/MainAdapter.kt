@@ -19,8 +19,8 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
         DiffUtil.ItemCallback<ListItem>() {
         override fun areItemsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
             return when {
-                oldItem is ListItem.ImageItem && newItem is ListItem.ImageItem -> oldItem.thumbnailUrl == newItem.thumbnailUrl
-                oldItem is ListItem.VideoItem && newItem is ListItem.VideoItem -> oldItem.thumbnail == newItem.thumbnail
+                oldItem is ListItem.ImageItem && newItem is ListItem.ImageItem -> oldItem.uuid == newItem.uuid
+                oldItem is ListItem.VideoItem && newItem is ListItem.VideoItem -> oldItem.uuid == newItem.uuid
                 else -> false
             }
         }

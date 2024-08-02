@@ -14,12 +14,14 @@ class CustomerDeserializer : JsonDeserializer<ListItem> {
     ): ListItem {
         val jsonObject = json.asJsonObject
         return if (jsonObject.has("thumbnail")) ListItem.VideoItem(
+            uuid = jsonObject.get("uuid").asString,
             thumbnail = jsonObject.get("thumbnail").asString,
             title = jsonObject.get("title").asString,
             datetime = jsonObject.get("datetime").asString,
             isBookmarked = jsonObject.get("isBookmarked").asBoolean
         )
         else ListItem.ImageItem(
+            uuid = jsonObject.get("uuid").asString,
             thumbnailUrl = jsonObject.get("thumbnailUrl").asString,
             siteName = jsonObject.get("siteName").asString,
             datetime = jsonObject.get("datetime").asString,
