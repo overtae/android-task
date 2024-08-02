@@ -4,12 +4,14 @@ import android.content.Context
 import com.example.androidtask.R
 import com.example.androidtask.presentation.ListItem
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 
 private const val BOOKMARK_LIST = "bookmark_list"
 
 class BookmarkRepository(context: Context) {
-    private val gson = Gson()
+    private val gson =
+        GsonBuilder().registerTypeAdapter(ListItem::class.java, CustomerDeserializer()).create()
     private val sharedPreferences = context.getSharedPreferences(
         context.getString(R.string.preference_file_key),
         Context.MODE_PRIVATE

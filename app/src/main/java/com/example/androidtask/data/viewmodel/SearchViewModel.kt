@@ -5,37 +5,40 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidtask.presentation.ListItem
-import com.example.androidtask.data.repository.ImageRepository
 import com.example.androidtask.data.repository.ImageRepositoryImpl
-import com.example.androidtask.presentation.toListItem
+import com.example.androidtask.data.repository.VideoRepositoryImpl
+import com.example.androidtask.presentation.ListItem
+import com.example.androidtask.presentation.sortedByDatetime
+import com.example.androidtask.presentation.toImageListItem
+import com.example.androidtask.presentation.toVideoListItem
 import kotlinx.coroutines.launch
-import okio.IOException
 import retrofit2.HttpException
+import java.io.IOException
 
 private const val TAG = "SearchViewModel"
 
-class ImageViewModel(private val repository: ImageRepository = ImageRepositoryImpl()) :
-    ViewModel() {
-
+class SearchViewModel(
+    private val imageRepository: ImageRepositoryImpl = ImageRepositoryImpl(),
+    private val videoRepository: VideoRepositoryImpl = VideoRepositoryImpl()
+) : ViewModel() {
     private val _searchResult = MutableLiveData<List<ListItem>>()
     val searchResult: LiveData<List<ListItem>> = _searchResult
 
     fun fetchSearchResult(searchText: String) {
         viewModelScope.launch {
             runCatching {
-                val result =
-                    repository.getImageList(searchText).documents?.toListItem() ?: listOf()
-                _searchResult.value = result
+                val imageResult =
+                    imageRepository.getImageList(searchText).documents?.toImageListItem()
+                        ?: listOf()
+                val videoResult =
+                    videoRepository.getVideoList(searchText).documents?.toVideoListItem()
+                        ?: listOf()
+                _searchResult.value = imageResult.plus(videoResult).sortedByDatetime()
             }.onFailure {
                 Log.e(TAG, "fetchSearchResult() 실패 : ${it.message}")
                 handleException(it)
             }
         }
-    }
-
-    fun updateBookmarkState(list: List<ListItem>) {
-        _searchResult.value = list
     }
 
     private fun handleException(e: Throwable) {

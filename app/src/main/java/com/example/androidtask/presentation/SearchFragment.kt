@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.androidtask.R
 import com.example.androidtask.data.viewmodel.BookmarkViewModel
 import com.example.androidtask.data.viewmodel.BookmarkViewModelFactory
-import com.example.androidtask.data.viewmodel.ImageViewModel
+import com.example.androidtask.data.viewmodel.SearchViewModel
 import com.example.androidtask.databinding.FragmentSearchBinding
 import com.example.androidtask.util.GridSpacingItemDecoration
 import com.example.androidtask.util.hideKeyBoard
@@ -27,7 +27,7 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<ImageViewModel>()
+    private val viewModel by viewModels<SearchViewModel>()
     private val bookmarkViewModel: BookmarkViewModel by activityViewModels {
         BookmarkViewModelFactory(requireContext())
     }
