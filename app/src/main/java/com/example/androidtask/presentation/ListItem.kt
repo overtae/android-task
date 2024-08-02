@@ -1,8 +1,17 @@
 package com.example.androidtask.presentation
 
-data class ListItem(
-    val thumbnailUrl: String,
-    val siteName: String,
-    val datetime: String,
-    var isBookmarked: Boolean = false
-)
+sealed class ListItem {
+    data class ImageItem(
+        val thumbnailUrl: String,
+        val siteName: String,
+        val datetime: String,
+        var isBookmarked: Boolean = false
+    ) : ListItem()
+
+    data class VideoItem(
+        val thumbnail: String,
+        val title: String,
+        val datetime: String,
+        var isBookmarked: Boolean = false
+    ) : ListItem()
+}
