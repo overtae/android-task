@@ -14,4 +14,8 @@ sealed class ListItem {
         val datetime: String,
         var isBookmarked: Boolean = false
     ) : ListItem()
+
+    data class LoadingItem(
+        var isLoading: Boolean
+    ) : ListItem()
 }

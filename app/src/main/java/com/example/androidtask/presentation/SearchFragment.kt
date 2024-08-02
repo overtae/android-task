@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtask.R
 import com.example.androidtask.data.viewmodel.BookmarkViewModel
 import com.example.androidtask.data.viewmodel.BookmarkViewModelFactory
@@ -38,6 +39,8 @@ class SearchFragment : Fragment() {
         }
     }
 
+    private var currentPage = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.fetchSearchResult(loadSearchHistory() ?: "")
@@ -55,6 +58,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initViewModel()
+        fetchNextPage()
     }
 
     override fun onDestroy() {
@@ -64,7 +68,8 @@ class SearchFragment : Fragment() {
 
     private fun initViewModel() = with(viewModel) {
         searchResult.observe(viewLifecycleOwner) {
-            mainAdapter.submitList(it)
+            val hasLoadingItem = it.count { item -> item is ListItem.LoadingItem } > 0
+            mainAdapter.submitList(if (hasLoadingItem) it else it.plus(ListItem.LoadingItem(true)))
         }
     }
 
@@ -72,7 +77,16 @@ class SearchFragment : Fragment() {
         etSearch.setText(loadSearchHistory())
         rvSearch.run {
             adapter = mainAdapter
-            layoutManager = GridLayoutManager(requireContext(), 2)
+            layoutManager = GridLayoutManager(requireContext(), 2).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return when (mainAdapter.getItemViewType(position)) {
+                            MainAdapter.TYPE_LOADING -> 2
+                            else -> 1
+                        }
+                    }
+                }
+            }
             addItemDecoration(GridSpacingItemDecoration(2, 16f.px))
         }
         btnSearch.setOnClickListener { handleSubmitInput() }
@@ -114,5 +128,23 @@ class SearchFragment : Fragment() {
             Context.MODE_PRIVATE
         )
         return sharedPref.getString(SEARCH_HISTORY, "")
+    }
+
+    private fun fetchNextPage() = with(binding) {
+        rvSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
+                val itemTotalCount = recyclerView.adapter?.itemCount ?: 0
+
+                if (!rvSearch.canScrollVertically(1) && lastVisibleItemPosition >= itemTotalCount - 1) {
+                    mainAdapter.stopLoading()
+                    rvSearch.smoothScrollToPosition(itemTotalCount - 1)
+                    viewModel.fetchSearchResult(etSearch.text.toString(), ++currentPage)
+                }
+            }
+        })
     }
 }

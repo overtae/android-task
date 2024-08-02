@@ -2,12 +2,15 @@ package com.example.androidtask.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.androidtask.R
 import com.example.androidtask.data.repository.BookmarkRepository
 import com.example.androidtask.data.viewmodel.BookmarkViewModel
+import com.example.androidtask.databinding.ItemLoadingBinding
 import com.example.androidtask.databinding.ItemSearchResultBinding
 import com.example.androidtask.util.toFormattedDatetime
 
@@ -31,12 +34,14 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
     companion object {
         private const val TYPE_IMAGE = 0
         private const val TYPE_VIDEO = 1
+        const val TYPE_LOADING = 2
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
             is ListItem.ImageItem -> TYPE_IMAGE
             is ListItem.VideoItem -> TYPE_VIDEO
+            else -> TYPE_LOADING
         }
     }
 
@@ -50,8 +55,16 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
                 )
             )
 
-            else -> VideoViewHolder(
+            TYPE_VIDEO -> VideoViewHolder(
                 ItemSearchResultBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
+            else -> LoadingViewHolder(
+                ItemLoadingBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -63,8 +76,14 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
             is ListItem.ImageItem -> (holder as ImageViewHolder).bind(item)
-            else -> (holder as VideoViewHolder).bind(item as ListItem.VideoItem)
+            is ListItem.VideoItem -> (holder as VideoViewHolder).bind(item)
+            else -> return
         }
+    }
+
+    fun stopLoading() {
+        val items = currentList.filter { it !is ListItem.LoadingItem }
+        submitList(items)
     }
 
     inner class ImageViewHolder(binding: ItemSearchResultBinding) :
@@ -75,10 +94,15 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
         private val bookmarkToggleButton = binding.tbBookmark
 
         fun bind(item: ListItem.ImageItem) = with(item) {
-            siteNameTextView.text = siteName
+            siteNameTextView.text = itemView.context.getString(R.string.search_item_image, siteName)
             datetimeTextView.text = datetime.toFormattedDatetime()
             bookmarkToggleButton.isChecked =
                 BookmarkViewModel(BookmarkRepository(itemView.context)).isBookmarked(item)
+
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(thumbnailImageView.parent as androidx.constraintlayout.widget.ConstraintLayout)
+            constraintSet.setDimensionRatio(thumbnailImageView.id, "1:1")
+            constraintSet.applyTo(thumbnailImageView.parent as androidx.constraintlayout.widget.ConstraintLayout)
             Glide.with(thumbnailImageView.context)
                 .load(thumbnailUrl)
                 .into(thumbnailImageView)
@@ -97,7 +121,7 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
         private val bookmarkToggleButton = binding.tbBookmark
 
         fun bind(item: ListItem.VideoItem) = with(item) {
-            siteNameTextView.text = title
+            siteNameTextView.text = itemView.context.getString(R.string.search_item_video, title)
             datetimeTextView.text = datetime.toFormattedDatetime()
             bookmarkToggleButton.isChecked =
                 BookmarkViewModel(BookmarkRepository(itemView.context)).isBookmarked(item)
@@ -110,4 +134,7 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
             }
         }
     }
+
+    inner class LoadingViewHolder(binding: ItemLoadingBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
