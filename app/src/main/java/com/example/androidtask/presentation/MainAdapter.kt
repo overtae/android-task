@@ -14,7 +14,7 @@ import com.example.androidtask.databinding.ItemLoadingBinding
 import com.example.androidtask.databinding.ItemSearchResultBinding
 import com.example.androidtask.util.toFormattedDatetime
 
-class MainAdapter(val onClick: (ListItem) -> Unit) :
+class MainAdapter(private val onClick: (ListItem) -> Unit) :
     ListAdapter<ListItem, RecyclerView.ViewHolder>(object :
         DiffUtil.ItemCallback<ListItem>() {
         override fun areItemsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
@@ -52,7 +52,8 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
                     LayoutInflater.from(
                         parent.context
                     ), parent, false
-                )
+                ),
+                onClick
             )
 
             TYPE_VIDEO -> VideoViewHolder(
@@ -60,7 +61,8 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
                     LayoutInflater.from(parent.context),
                     parent,
                     false
-                )
+                ),
+                onClick
             )
 
             else -> LoadingViewHolder(
@@ -86,7 +88,10 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
         submitList(items)
     }
 
-    inner class ImageViewHolder(binding: ItemSearchResultBinding) :
+    class ImageViewHolder(
+        binding: ItemSearchResultBinding,
+        private val onClick: (ListItem) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         private val thumbnailImageView = binding.ivThumbnail
         private val siteNameTextView = binding.tvSiteName
@@ -113,7 +118,10 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
         }
     }
 
-    inner class VideoViewHolder(binding: ItemSearchResultBinding) :
+    class VideoViewHolder(
+        binding: ItemSearchResultBinding,
+        private val onClick: (ListItem) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         private val thumbnailImageView = binding.ivThumbnail
         private val siteNameTextView = binding.tvSiteName
@@ -135,6 +143,6 @@ class MainAdapter(val onClick: (ListItem) -> Unit) :
         }
     }
 
-    inner class LoadingViewHolder(binding: ItemLoadingBinding) :
+    class LoadingViewHolder(binding: ItemLoadingBinding) :
         RecyclerView.ViewHolder(binding.root)
 }
