@@ -6,7 +6,7 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import java.lang.reflect.Type
 
-class CustomerDeserializer : JsonDeserializer<ListItem> {
+class CustomDeserializer : JsonDeserializer<ListItem> {
     override fun deserialize(
         json: JsonElement,
         typeOfT: Type?,
