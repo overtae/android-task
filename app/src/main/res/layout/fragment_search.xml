@@ -45,4 +45,29 @@
         app:layout_constraintTop_toBottomOf="@id/ll_search"
         tools:listitem="@layout/item_search_result" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_to_top"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/shape_circle"
+        android:backgroundTint="@drawable/selector_to_top"
+        android:contentDescription="@string/scroll_to_top"
+        android:scaleType="center"
+        android:src="@drawable/ic_to_top"
+        android:stateListAnimator="@null"
+        android:tint="@drawable/selector_to_top_reversed"
+        android:visibility="gone"
+        app:backgroundTint="@drawable/selector_to_top"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:fabCustomSize="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="32dp"
+        app:rippleColor="@null"
+        app:shapeAppearance="@drawable/shape_circle"
+        app:tint="@drawable/selector_to_top_reversed" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

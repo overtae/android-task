@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -44,7 +45,7 @@ class SearchFragment : Fragment() {
 
     private var currentPage = 1
     private val result = mutableListOf<ListItem>()
-    val loadingItem = ListItem.LoadingItem(true) as ListItem
+    private val loadingItem = ListItem.LoadingItem(true) as ListItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,6 +103,7 @@ class SearchFragment : Fragment() {
             }
             false
         }
+        fabToTop.setOnClickListener { rvSearch.smoothScrollToPosition(0) }
     }
 
     private fun handleSubmitInput() = with(binding) {
@@ -145,15 +147,35 @@ class SearchFragment : Fragment() {
 
     private fun initScrollListener() = with(binding) {
         rvSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var isVisible = false
+            val fadeOut = AlphaAnimation(1f, 0f).apply { duration = 200 }
+            val fadeIn = AlphaAnimation(0f, 1f).apply { duration = 200 }
+
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
+                // infinite scroll
                 val lastVisibleItemPosition =
                     (recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
                 val itemTotalCount = recyclerView.adapter?.itemCount ?: 0
 
                 if (!rvSearch.canScrollVertically(1) && lastVisibleItemPosition >= itemTotalCount - 1) {
                     fetchNextPage()
+                }
+
+                // scroll to top
+                // 더이상 위로 스크롤 할 수 없거나 버튼이 보이고 아래로 스크롤 중일 때
+                if (!recyclerView.canScrollVertically(-1) || (isVisible && dy > 0)) {
+                    fabToTop.visibility = View.GONE
+                    fabToTop.startAnimation(fadeOut)
+                    isVisible = false
+                }
+
+                // 버튼이 보이지 않고 위로 스크롤 중일 때
+                else if (!isVisible && dy < 0) {
+                    fabToTop.visibility = View.VISIBLE
+                    fabToTop.startAnimation(fadeIn)
+                    isVisible = true
                 }
             }
         })
