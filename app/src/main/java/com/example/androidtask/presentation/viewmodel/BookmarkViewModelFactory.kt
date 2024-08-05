@@ -1,4 +1,4 @@
-package com.example.androidtask.data.viewmodel
+package com.example.androidtask.presentation.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

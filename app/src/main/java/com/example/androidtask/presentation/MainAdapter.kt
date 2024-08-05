@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidtask.R
 import com.example.androidtask.data.repository.BookmarkRepository
-import com.example.androidtask.data.viewmodel.BookmarkViewModel
+import com.example.androidtask.presentation.viewmodel.BookmarkViewModel
 import com.example.androidtask.databinding.ItemLoadingBinding
 import com.example.androidtask.databinding.ItemSearchResultBinding
 import com.example.androidtask.util.toFormattedDatetime

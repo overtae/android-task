@@ -1,12 +1,11 @@
-package com.example.androidtask.data.viewmodel
+package com.example.androidtask.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidtask.data.repository.ImageRepositoryImpl
-import com.example.androidtask.data.repository.VideoRepositoryImpl
+import com.example.androidtask.data.repository.SearchRepositoryImpl
 import com.example.androidtask.presentation.ListItem
 import com.example.androidtask.presentation.sortedByDatetime
 import com.example.androidtask.presentation.toImageListItem
@@ -18,8 +17,7 @@ import java.io.IOException
 private const val TAG = "SearchViewModel"
 
 class SearchViewModel(
-    private val imageRepository: ImageRepositoryImpl = ImageRepositoryImpl(),
-    private val videoRepository: VideoRepositoryImpl = VideoRepositoryImpl()
+    private val repository: SearchRepositoryImpl
 ) : ViewModel() {
     private val _searchResult = MutableLiveData<List<ListItem>>()
     val searchResult: LiveData<List<ListItem>> = _searchResult
@@ -32,16 +30,13 @@ class SearchViewModel(
                 //  * 그러나 image 결과 값과 video 결과 값의 날짜 범위는 서로 다르다.
                 //  * 따라서 매번 불러올 때마다 기존에 표시되던 리스트의 순서가 변경되는 일이 생긴다.
                 //  * 어케함???
-                val imageResponse = imageRepository.getImageList(searchText, page)
-                val videoResponse = videoRepository.getVideoList(searchText, page)
+                val imageResponse = repository.getImageList(searchText, page)
+                val videoResponse = repository.getVideoList(searchText, page)
 
                 val imageResult = imageResponse.documents?.toImageListItem() ?: listOf()
                 val videoResult = videoResponse.documents?.toVideoListItem() ?: listOf()
 
-                val nextPageResult = imageResult.plus(videoResult)
-                _searchResult.value =
-                    if (page == 1) nextPageResult else _searchResult.value?.plus(nextPageResult)
-                        ?.sortedByDatetime()
+                _searchResult.value = imageResult.plus(videoResult).sortedByDatetime()
             }.onFailure {
                 Log.e(TAG, "fetchSearchResult() 실패 : ${it.message}")
                 handleException(it)

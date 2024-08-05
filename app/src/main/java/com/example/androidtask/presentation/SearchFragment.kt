@@ -14,10 +14,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtask.R
-import com.example.androidtask.data.viewmodel.BookmarkViewModel
-import com.example.androidtask.data.viewmodel.BookmarkViewModelFactory
-import com.example.androidtask.data.viewmodel.SearchViewModel
+import com.example.androidtask.presentation.viewmodel.BookmarkViewModel
+import com.example.androidtask.presentation.viewmodel.BookmarkViewModelFactory
+import com.example.androidtask.presentation.viewmodel.SearchViewModel
 import com.example.androidtask.databinding.FragmentSearchBinding
+import com.example.androidtask.presentation.viewmodel.SearchViewModelFactory
 import com.example.androidtask.util.GridSpacingItemDecoration
 import com.example.androidtask.util.hideKeyBoard
 import com.example.androidtask.util.px
@@ -28,7 +29,9 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<SearchViewModel>()
+    private val searchViewModel: SearchViewModel by viewModels<SearchViewModel> {
+        SearchViewModelFactory()
+    }
     private val bookmarkViewModel: BookmarkViewModel by activityViewModels {
         BookmarkViewModelFactory(requireContext())
     }
@@ -40,10 +43,12 @@ class SearchFragment : Fragment() {
     }
 
     private var currentPage = 1
+    private val result = mutableListOf<ListItem>()
+    val loadingItem = ListItem.LoadingItem(true) as ListItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.fetchSearchResult(loadSearchHistory() ?: "")
+        searchViewModel.fetchSearchResult(loadSearchHistory() ?: "")
     }
 
     override fun onCreateView(
@@ -58,7 +63,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initViewModel()
-        fetchNextPage()
+        initScrollListener()
     }
 
     override fun onDestroy() {
@@ -66,10 +71,10 @@ class SearchFragment : Fragment() {
         _binding = null
     }
 
-    private fun initViewModel() = with(viewModel) {
+    private fun initViewModel() = with(searchViewModel) {
         searchResult.observe(viewLifecycleOwner) {
-            val hasLoadingItem = it.count { item -> item is ListItem.LoadingItem } > 0
-            mainAdapter.submitList(if (hasLoadingItem) it else it.plus(ListItem.LoadingItem(true)))
+            result.addAll(it)
+            mainAdapter.submitList(listOf(*result.toTypedArray(), loadingItem))
         }
     }
 
@@ -103,8 +108,11 @@ class SearchFragment : Fragment() {
         val searchText = etSearch.text.toString()
 
         requireContext().hideKeyBoard(etSearch)
+        if (loadSearchHistory() == searchText) return
         if (searchText.isNotEmpty()) {
-            viewModel.fetchSearchResult(etSearch.text.toString())
+            currentPage = 0
+            result.clear()
+            fetchNextPage()
             saveSearchHistory(searchText)
             return
         }
@@ -131,6 +139,11 @@ class SearchFragment : Fragment() {
     }
 
     private fun fetchNextPage() = with(binding) {
+        mainAdapter.stopLoading()
+        searchViewModel.fetchSearchResult(etSearch.text.toString(), ++currentPage)
+    }
+
+    private fun initScrollListener() = with(binding) {
         rvSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -140,9 +153,7 @@ class SearchFragment : Fragment() {
                 val itemTotalCount = recyclerView.adapter?.itemCount ?: 0
 
                 if (!rvSearch.canScrollVertically(1) && lastVisibleItemPosition >= itemTotalCount - 1) {
-                    mainAdapter.stopLoading()
-                    rvSearch.smoothScrollToPosition(itemTotalCount - 1)
-                    viewModel.fetchSearchResult(etSearch.text.toString(), ++currentPage)
+                    fetchNextPage()
                 }
             }
         })

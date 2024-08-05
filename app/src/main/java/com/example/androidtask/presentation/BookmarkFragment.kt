@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.androidtask.data.viewmodel.BookmarkViewModel
-import com.example.androidtask.data.viewmodel.BookmarkViewModelFactory
+import com.example.androidtask.presentation.viewmodel.BookmarkViewModel
+import com.example.androidtask.presentation.viewmodel.BookmarkViewModelFactory
 import com.example.androidtask.databinding.FragmentBookmarkBinding
 import com.example.androidtask.util.GridSpacingItemDecoration
 import com.example.androidtask.util.px
