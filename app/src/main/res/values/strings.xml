@@ -8,6 +8,8 @@
     <!-- Search Fragment -->
     <string name="search">검색</string>
     <string name="search_hint">검색어를 입력해주세요.</string>
+    <string name="search_suggestion">무엇을 찾으시나요?</string>
+    <string name="search_recent">최근 검색어</string>
     <string name="search_item_image">[Image] %s</string>
     <string name="search_item_video">[Video] %s</string>
 
@@ -21,4 +23,7 @@
     <string name="thumbnail">썸네일</string>
     <string name="bookmark">북마크</string>
     <string name="scroll_to_top">화면 상단으로</string>
+    <string name="back">이전으로</string>
+    <string name="cancel">취소</string>
+    <string name="delete">삭제</string>
 </resources>

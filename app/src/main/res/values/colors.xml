@@ -2,4 +2,16 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- theme -->
+    <color name="primary">#FEE300</color>
+    <color name="text">#1E1E1E</color>
+
+
+    <!-- gray -->
+    <color name="gray_100">#F2F2F2</color>
+    <color name="gray_200">#CCCCCC</color>
+    <color name="gray_300">#A5A5A5</color>
+    <color name="gray_400">#7F7F7F</color>
+    <color name="gray_500">#595959</color>
 </resources>
