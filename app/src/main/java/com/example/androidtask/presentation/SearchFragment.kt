@@ -1,15 +1,16 @@
 package com.example.androidtask.presentation
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
-import android.view.inputmethod.EditorInfo
-import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,10 +22,10 @@ import com.example.androidtask.presentation.viewmodel.SearchViewModel
 import com.example.androidtask.databinding.FragmentSearchBinding
 import com.example.androidtask.presentation.viewmodel.SearchViewModelFactory
 import com.example.androidtask.util.GridSpacingItemDecoration
-import com.example.androidtask.util.hideKeyBoard
 import com.example.androidtask.util.px
 
 private const val SEARCH_HISTORY = "search_history"
+private const val SEARCH_TEXT = "search_text"
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -46,6 +47,19 @@ class SearchFragment : Fragment() {
     private var currentPage = 1
     private val result = mutableListOf<ListItem>()
     private val loadingItem = ListItem.LoadingItem(true) as ListItem
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val searchText = result.data?.getStringExtra(SEARCH_TEXT)
+                    binding.etSearch.setText(searchText)
+                    handleSubmitInput()
+                }
+            }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,13 +109,14 @@ class SearchFragment : Fragment() {
             }
             addItemDecoration(GridSpacingItemDecoration(2, 16f.px))
         }
-        btnSearch.setOnClickListener { handleSubmitInput() }
-        etSearch.setOnEditorActionListener { _, action, event ->
-            if (action == EditorInfo.IME_ACTION_SEARCH || event.keyCode == KeyEvent.KEYCODE_ENTER) {
-                handleSubmitInput()
-                return@setOnEditorActionListener true
+        etSearch.setOnClickListener {
+            val intent = Intent(requireContext(), RecentSearchActivity::class.java).apply {
+                putExtra(
+                    SEARCH_TEXT,
+                    etSearch.text.toString()
+                )
             }
-            false
+            activityResultLauncher.launch(intent)
         }
         fabToTop.setOnClickListener { rvSearch.smoothScrollToPosition(0) }
     }
@@ -109,7 +124,6 @@ class SearchFragment : Fragment() {
     private fun handleSubmitInput() = with(binding) {
         val searchText = etSearch.text.toString()
 
-        requireContext().hideKeyBoard(etSearch)
         if (loadSearchHistory() == searchText) return
         if (searchText.isNotEmpty()) {
             currentPage = 0
@@ -118,7 +132,6 @@ class SearchFragment : Fragment() {
             saveSearchHistory(searchText)
             return
         }
-        Toast.makeText(requireContext(), "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
     }
 
     private fun saveSearchHistory(searchText: String) {

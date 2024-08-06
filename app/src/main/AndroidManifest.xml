@@ -11,11 +11,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Playground">
+        android:theme="@style/Theme.Playground"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".presentation.RecentSearchActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
