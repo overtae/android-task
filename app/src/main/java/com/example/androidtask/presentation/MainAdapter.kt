@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.FitCenter
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.androidtask.R
 import com.example.androidtask.data.repository.BookmarkRepository
 import com.example.androidtask.presentation.viewmodel.BookmarkViewModel
@@ -99,6 +103,11 @@ class MainAdapter(private val onClick: (ListItem) -> Unit) :
         private val bookmarkToggleButton = binding.tbBookmark
 
         fun bind(item: ListItem.ImageItem) = with(item) {
+            val multiTransformation = MultiTransformation(
+                FitCenter(),
+                RoundedCorners(50),
+            )
+
             siteNameTextView.text = itemView.context.getString(R.string.search_item_image, siteName)
             datetimeTextView.text = datetime.toFormattedDatetime()
             bookmarkToggleButton.isChecked =
@@ -110,6 +119,7 @@ class MainAdapter(private val onClick: (ListItem) -> Unit) :
             constraintSet.applyTo(thumbnailImageView.parent as androidx.constraintlayout.widget.ConstraintLayout)
             Glide.with(thumbnailImageView.context)
                 .load(thumbnailUrl)
+                .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .into(thumbnailImageView)
             itemView.setOnClickListener {
                 bookmarkToggleButton.isChecked = !bookmarkToggleButton.isChecked
@@ -129,12 +139,22 @@ class MainAdapter(private val onClick: (ListItem) -> Unit) :
         private val bookmarkToggleButton = binding.tbBookmark
 
         fun bind(item: ListItem.VideoItem) = with(item) {
+            val multiTransformation = MultiTransformation(
+                FitCenter(),
+                RoundedCorners(50),
+            )
             siteNameTextView.text = itemView.context.getString(R.string.search_item_video, title)
             datetimeTextView.text = datetime.toFormattedDatetime()
             bookmarkToggleButton.isChecked =
                 BookmarkViewModel(BookmarkRepository(itemView.context)).isBookmarked(item)
+
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(thumbnailImageView.parent as androidx.constraintlayout.widget.ConstraintLayout)
+            constraintSet.constrainHeight(thumbnailImageView.id, ConstraintSet.WRAP_CONTENT)
+            constraintSet.applyTo(thumbnailImageView.parent as androidx.constraintlayout.widget.ConstraintLayout)
             Glide.with(thumbnailImageView.context)
                 .load(thumbnail)
+                .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .into(thumbnailImageView)
             itemView.setOnClickListener {
                 bookmarkToggleButton.isChecked = !bookmarkToggleButton.isChecked
