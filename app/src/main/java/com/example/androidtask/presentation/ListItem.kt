@@ -6,7 +6,7 @@ sealed class ListItem {
         val thumbnailUrl: String,
         val siteName: String,
         val datetime: String,
-        var isBookmarked: Boolean = false
+        val isBookmarked: Boolean = false
     ) : ListItem()
 
     data class VideoItem(
@@ -14,10 +14,10 @@ sealed class ListItem {
         val thumbnail: String,
         val title: String,
         val datetime: String,
-        var isBookmarked: Boolean = false
+        val isBookmarked: Boolean = false
     ) : ListItem()
 
     data class LoadingItem(
-        var isLoading: Boolean
+        val isLoading: Boolean
     ) : ListItem()
 }

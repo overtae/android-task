@@ -1,4 +1,4 @@
-package com.example.androidtask.presentation
+package com.example.androidtask.presentation.search
 
 import android.app.Activity
 import android.content.Context
@@ -15,32 +15,41 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androidtask.R
-import com.example.androidtask.presentation.viewmodel.BookmarkViewModel
-import com.example.androidtask.presentation.viewmodel.BookmarkViewModelFactory
-import com.example.androidtask.presentation.viewmodel.SearchViewModel
+import com.example.androidtask.presentation.bookmark.BookmarkViewModel
+import com.example.androidtask.presentation.bookmark.BookmarkViewModelFactory
 import com.example.androidtask.databinding.FragmentSearchBinding
-import com.example.androidtask.presentation.viewmodel.SearchViewModelFactory
+import com.example.androidtask.presentation.ListItem
+import com.example.androidtask.presentation.recent_search.RecentSearchActivity
+import com.example.androidtask.presentation.copy
+import com.example.androidtask.presentation.find
+import com.example.androidtask.presentation.isBookmarked
+import com.example.androidtask.presentation.recent_search.loadSearchHistory
 import com.example.androidtask.util.GridSpacingItemDecoration
 import com.example.androidtask.util.px
 
-private const val SEARCH_HISTORY = "search_history"
 private const val SEARCH_TEXT = "search_text"
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
+    private val recentSearchText by lazy {
+        loadSearchHistory(requireContext()).lastOrNull() ?: ""
+    }
     private val searchViewModel: SearchViewModel by viewModels<SearchViewModel> {
         SearchViewModelFactory()
     }
     private val bookmarkViewModel: BookmarkViewModel by activityViewModels {
         BookmarkViewModelFactory(requireContext())
     }
-    private val mainAdapter by lazy {
-        MainAdapter { item ->
-            if (bookmarkViewModel.isBookmarked(item)) bookmarkViewModel.removeBookmark(item)
-            else bookmarkViewModel.addBookmark(item)
+    private val searchAdapter by lazy {
+        SearchAdapter { item ->
+            if (item.isBookmarked) bookmarkViewModel.removeBookmark(item)
+            else {
+                item.copy(isBookmarked = true).also {
+                    bookmarkViewModel.addBookmark(it)
+                }
+            }
         }
     }
 
@@ -51,6 +60,7 @@ class SearchFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        searchViewModel.fetchSearchResult(recentSearchText)
         activityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
@@ -59,11 +69,6 @@ class SearchFragment : Fragment() {
                     handleSubmitInput()
                 }
             }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        searchViewModel.fetchSearchResult(loadSearchHistory() ?: "")
     }
 
     override fun onCreateView(
@@ -86,22 +91,32 @@ class SearchFragment : Fragment() {
         _binding = null
     }
 
-    private fun initViewModel() = with(searchViewModel) {
-        searchResult.observe(viewLifecycleOwner) {
+    private fun initViewModel() {
+        searchViewModel.searchResult.observe(viewLifecycleOwner) {
             result.addAll(it)
-            mainAdapter.submitList(listOf(*result.toTypedArray(), loadingItem))
+            searchAdapter.submitList(listOf(*result.toTypedArray(), loadingItem))
+        }
+        bookmarkViewModel.bookmarkList.observe(viewLifecycleOwner) { bookmarks ->
+            result.replaceAll { r ->
+                when {
+                    bookmarks.find(r) == null && r.isBookmarked -> r.copy(isBookmarked = false)
+                    bookmarks.find(r) != null && !r.isBookmarked -> r.copy(isBookmarked = true)
+                    else -> r
+                }
+            }
+            searchAdapter.submitList(result.toList())
         }
     }
 
     private fun initView() = with(binding) {
-        etSearch.setText(loadSearchHistory())
+        etSearch.setText(recentSearchText)
         rvSearch.run {
-            adapter = mainAdapter
+            adapter = searchAdapter
             layoutManager = GridLayoutManager(requireContext(), 2).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
-                        return when (mainAdapter.getItemViewType(position)) {
-                            MainAdapter.TYPE_LOADING -> 2
+                        return when (searchAdapter.getItemViewType(position)) {
+                            SearchAdapter.TYPE_LOADING -> 2
                             else -> 1
                         }
                     }
@@ -124,37 +139,17 @@ class SearchFragment : Fragment() {
     private fun handleSubmitInput() = with(binding) {
         val searchText = etSearch.text.toString()
 
-        if (loadSearchHistory() == searchText) return
+        if (recentSearchText == searchText) return
         if (searchText.isNotEmpty()) {
             currentPage = 0
             result.clear()
             fetchNextPage()
-            saveSearchHistory(searchText)
             return
         }
     }
 
-    private fun saveSearchHistory(searchText: String) {
-        val sharedPref = requireContext().getSharedPreferences(
-            getString(R.string.preference_file_key),
-            Context.MODE_PRIVATE
-        )
-        val edit = sharedPref.edit()
-
-        edit.putString(SEARCH_HISTORY, searchText)
-        edit.apply()
-    }
-
-    private fun loadSearchHistory(): String? {
-        val sharedPref = requireContext().getSharedPreferences(
-            getString(R.string.preference_file_key),
-            Context.MODE_PRIVATE
-        )
-        return sharedPref.getString(SEARCH_HISTORY, "")
-    }
-
     private fun fetchNextPage() = with(binding) {
-        mainAdapter.stopLoading()
+        searchAdapter.stopLoading()
         searchViewModel.fetchSearchResult(etSearch.text.toString(), ++currentPage)
     }
 
