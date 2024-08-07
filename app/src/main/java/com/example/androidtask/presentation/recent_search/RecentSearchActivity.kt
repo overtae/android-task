@@ -3,6 +3,8 @@ package com.example.androidtask.presentation.recent_search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -21,10 +23,14 @@ private const val RECENT_SEARCH = "recent_search"
 class RecentSearchActivity : AppCompatActivity() {
     private val binding by lazy { ActivityRecentSearchBinding.inflate(layoutInflater) }
     private val initialSearchText by lazy { intent.getStringExtra(SEARCH_TEXT) ?: "" }
-    private val recentSearchList by lazy { loadSearchHistory(this) }
+    private val recentSearchList: ArrayList<String> by lazy {
+        loadSearchHistory(this).toCollection(
+            ArrayList()
+        )
+    }
     private val recentSearchAdapter by lazy {
         RecentSearchAdapter(::handleDeleteRecentSearch, ::handleSubmitInput).apply {
-            submitList(recentSearchList)
+            submitList(recentSearchList.toList())
         }
     }
 
@@ -43,44 +49,48 @@ class RecentSearchActivity : AppCompatActivity() {
     private fun initView() = with(binding) {
         rvRecentSearch.adapter = recentSearchAdapter
         ivPrev.setOnClickListener { finish() }
-        ivCancel.setOnClickListener { etSearch.text.clear() }
-        ivSearch.setOnClickListener {
-            val searchText = etSearch.text.toString()
-            val intent = Intent().apply { putExtra(SEARCH_TEXT, searchText) }
-            handleSubmitInput(searchText)
-            setResult(RESULT_OK, intent)
-            finish()
+        ivSearch.setOnClickListener { handleSubmitInput(etSearch.text.toString()) }
+        ivCancel.apply {
+            visibility = if (initialSearchText.isNotEmpty()) View.VISIBLE else View.GONE
+            setOnClickListener { etSearch.text.clear() }
         }
-        etSearch.setText(initialSearchText)
-        etSearch.setOnEditorActionListener { textView, action, event ->
-            val searchText = textView.text.toString()
-            if (searchText.isNotEmpty()) ivCancel.visibility = View.VISIBLE
-            else ivCancel.visibility = View.GONE
-
-            // handle IME search event
-            if (action == EditorInfo.IME_ACTION_SEARCH || event.keyCode == KeyEvent.KEYCODE_ENTER) {
-                if (searchText.isNotEmpty()) handleSubmitInput(searchText)
-                else Toast.makeText(this@RecentSearchActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT)
-                    .show()
-                return@setOnEditorActionListener true
+        etSearch.apply {
+            setText(initialSearchText)
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun afterTextChanged(p0: Editable?) {
+                    if (etSearch.text.toString().isNotEmpty()) ivCancel.visibility = View.VISIBLE
+                    else ivCancel.visibility = View.GONE
+                }
+            })
+            setOnEditorActionListener { textView, action, event ->
+                if (action == EditorInfo.IME_ACTION_SEARCH || event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                    handleSubmitInput(textView.text.toString())
+                    return@setOnEditorActionListener true
+                }
+                false
             }
-            false
         }
     }
 
     private fun handleSubmitInput(item: String) {
-        val newList = listOf(*recentSearchList.filter { it != item }.toTypedArray(), item)
-        recentSearchAdapter.submitList(newList.toList())
-        saveSearchHistory(this, newList)
+        if (item.isNotBlank()) {
+            val newList = listOf(*recentSearchList.filter { it != item }.toTypedArray(), item)
+            recentSearchAdapter.submitList(newList.toList())
+            recentSearchList.clear().also { recentSearchList.addAll(newList) }
+            saveSearchHistory(this, newList)
 
-        val intent = Intent().apply { putExtra(SEARCH_TEXT, item) }
-        setResult(RESULT_OK, intent)
-        finish()
+            val intent = Intent().apply { putExtra(SEARCH_TEXT, item) }
+            setResult(RESULT_OK, intent)
+            finish()
+        } else Toast.makeText(this, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
     }
 
     private fun handleDeleteRecentSearch(item: String) {
         val newList = recentSearchList.filter { it != item }
         recentSearchAdapter.submitList(newList.toList())
+        recentSearchList.clear().also { recentSearchList.addAll(newList) }
         saveSearchHistory(this, recentSearchList)
     }
 }
@@ -103,5 +113,5 @@ fun loadSearchHistory(context: Context): List<String> {
         Context.MODE_PRIVATE
     )
     val json = sharedPref.getString(RECENT_SEARCH, "")
-    return gson.fromJson(json, Array<String>::class.java)?.toList() ?: emptyList()
+    return gson.fromJson(json, Array<String>::class.java)?.toList() ?: listOf()
 }
