@@ -1,11 +1,11 @@
-package com.example.androidtask.presentation
+package com.example.androidtask.presentation.main
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.example.androidtask.R
 import com.example.androidtask.databinding.ActivityMainBinding
 
@@ -26,27 +26,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
-        replaceFragment(SearchFragment())
+        vpMain.adapter = ViewPagerAdapter(this@MainActivity)
+        vpMain.isUserInputEnabled = false
+        vpMain.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.bnMain.menu.getItem(position).isChecked = true
+            }
+        })
         bnMain.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.item_search -> {
-                    replaceFragment(SearchFragment())
+                    vpMain.currentItem = 0
                     return@setOnItemSelectedListener true
                 }
 
                 R.id.item_bookmark -> {
-                    replaceFragment(BookmarkFragment())
+                    vpMain.currentItem = 1
                     return@setOnItemSelectedListener true
                 }
 
                 else -> return@setOnItemSelectedListener false
             }
         }
-    }
-
-    private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fcv_main, fragment)
-            .commit()
     }
 }
