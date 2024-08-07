@@ -1,4 +1,4 @@
-package com.example.androidtask.presentation.viewmodel
+package com.example.androidtask.presentation.bookmark
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,9 +27,4 @@ class BookmarkViewModel(private val repository: BookmarkRepository) : ViewModel(
         repository.removeBookmark(item)
         loadBookmarkList()
     }
-
-    fun isBookmarked(item: ListItem): Boolean {
-        return repository.bookmarkList.contains(item)
-    }
 }
-

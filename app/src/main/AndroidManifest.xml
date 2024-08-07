@@ -14,10 +14,10 @@
         android:theme="@style/Theme.Playground"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".presentation.RecentSearchActivity"
+            android:name=".presentation.recent_search.RecentSearchActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

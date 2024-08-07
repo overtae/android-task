@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="false"
-    tools:context=".presentation.BookmarkFragment">
+    tools:context=".presentation.bookmark.BookmarkFragment">
 
     <LinearLayout
         android:id="@+id/ll_search"

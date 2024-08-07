@@ -1,4 +1,4 @@
-package com.example.androidtask.presentation
+package com.example.androidtask.presentation.recent_search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

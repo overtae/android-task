@@ -1,4 +1,4 @@
-package com.example.androidtask.presentation.viewmodel
+package com.example.androidtask.presentation.bookmark
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

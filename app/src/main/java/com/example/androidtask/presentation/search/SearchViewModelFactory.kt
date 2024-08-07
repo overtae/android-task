@@ -1,4 +1,4 @@
-package com.example.androidtask.presentation.viewmodel
+package com.example.androidtask.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

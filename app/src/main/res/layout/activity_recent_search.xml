@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presentation.RecentSearchActivity">
+    tools:context=".presentation.recent_search.RecentSearchActivity">
 
     <ImageView
         android:id="@+id/iv_prev"
@@ -96,6 +96,8 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="12dp"
+        app:reverseLayout="true"
+        app:stackFromEnd="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

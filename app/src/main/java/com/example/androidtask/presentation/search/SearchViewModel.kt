@@ -1,4 +1,4 @@
-package com.example.androidtask.presentation.viewmodel
+package com.example.androidtask.presentation.search
 
 import android.util.Log
 import androidx.lifecycle.LiveData

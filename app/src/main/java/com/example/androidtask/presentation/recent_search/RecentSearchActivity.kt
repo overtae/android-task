@@ -1,4 +1,4 @@
-package com.example.androidtask.presentation
+package com.example.androidtask.presentation.recent_search
 
 import android.content.Context
 import android.content.Intent
@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.androidtask.R
 import com.example.androidtask.databinding.ActivityRecentSearchBinding
+import com.google.gson.Gson
 
 private const val SEARCH_TEXT = "search_text"
 private const val RECENT_SEARCH = "recent_search"
@@ -20,12 +21,10 @@ private const val RECENT_SEARCH = "recent_search"
 class RecentSearchActivity : AppCompatActivity() {
     private val binding by lazy { ActivityRecentSearchBinding.inflate(layoutInflater) }
     private val initialSearchText by lazy { intent.getStringExtra(SEARCH_TEXT) ?: "" }
-    private val recentSearchList by lazy { loadSearchHistory() ?: hashSetOf() }
+    private val recentSearchList by lazy { loadSearchHistory(this) }
     private val recentSearchAdapter by lazy {
         RecentSearchAdapter(::handleDeleteRecentSearch, ::handleSubmitInput).apply {
-            submitList(
-                recentSearchList.toList()
-            )
+            submitList(recentSearchList)
         }
     }
 
@@ -48,6 +47,7 @@ class RecentSearchActivity : AppCompatActivity() {
         ivSearch.setOnClickListener {
             val searchText = etSearch.text.toString()
             val intent = Intent().apply { putExtra(SEARCH_TEXT, searchText) }
+            handleSubmitInput(searchText)
             setResult(RESULT_OK, intent)
             finish()
         }
@@ -68,39 +68,40 @@ class RecentSearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleSubmitInput(searchText: String) {
-        recentSearchList.add(searchText)
-        saveSearchHistory(recentSearchList)
+    private fun handleSubmitInput(item: String) {
+        val newList = listOf(*recentSearchList.filter { it != item }.toTypedArray(), item)
+        recentSearchAdapter.submitList(newList.toList())
+        saveSearchHistory(this, newList)
 
-        val intent = Intent().apply { putExtra(SEARCH_TEXT, searchText) }
+        val intent = Intent().apply { putExtra(SEARCH_TEXT, item) }
         setResult(RESULT_OK, intent)
         finish()
     }
 
     private fun handleDeleteRecentSearch(item: String) {
-        val newList = recentSearchList.filter { item != it }
-        recentSearchList.clear()
-        recentSearchList.addAll(newList)
-        recentSearchAdapter.submitList(recentSearchList.toList())
-        saveSearchHistory(recentSearchList)
+        val newList = recentSearchList.filter { it != item }
+        recentSearchAdapter.submitList(newList.toList())
+        saveSearchHistory(this, recentSearchList)
     }
+}
 
-    private fun saveSearchHistory(set: Set<String>) {
-        val sharedPref = getSharedPreferences(
-            getString(R.string.preference_file_key),
-            Context.MODE_PRIVATE
-        )
-        val edit = sharedPref.edit()
+fun saveSearchHistory(context: Context, item: List<String>) {
+    val gson = Gson()
+    val sharedPref = context.getSharedPreferences(
+        context.getString(R.string.preference_file_key),
+        Context.MODE_PRIVATE
+    )
+    val edit = sharedPref.edit()
+    edit.putString(RECENT_SEARCH, gson.toJson(item))
+    edit.apply()
+}
 
-        edit.putStringSet(RECENT_SEARCH, set)
-        edit.apply()
-    }
-
-    private fun loadSearchHistory(): HashSet<String>? {
-        val sharedPref = getSharedPreferences(
-            getString(R.string.preference_file_key),
-            Context.MODE_PRIVATE
-        )
-        return sharedPref.getStringSet(RECENT_SEARCH, setOf<String>())?.toHashSet()
-    }
+fun loadSearchHistory(context: Context): List<String> {
+    val gson = Gson()
+    val sharedPref = context.getSharedPreferences(
+        context.getString(R.string.preference_file_key),
+        Context.MODE_PRIVATE
+    )
+    val json = sharedPref.getString(RECENT_SEARCH, "")
+    return gson.fromJson(json, Array<String>::class.java)?.toList() ?: emptyList()
 }
