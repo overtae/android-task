@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:fitsSystemWindows="false"
     tools:context=".presentation.bookmark.BookmarkFragment">
 
@@ -29,7 +28,7 @@
             android:layout_marginEnd="8dp"
             android:contentDescription="@string/search"
             android:src="@drawable/ic_search"
-            app:tint="@color/gray_300" />
+            app:tint="@color/gray_400" />
 
         <EditText
             android:id="@+id/et_search"
@@ -39,6 +38,8 @@
             android:autofillHints=""
             android:background="@null"
             android:focusable="false"
+            android:textColor="@color/light"
+            android:textColorHint="@color/gray_400"
             android:hint="@string/search_hint"
             android:imeOptions="actionSearch"
             android:inputType="none"

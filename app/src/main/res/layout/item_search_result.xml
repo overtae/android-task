@@ -20,8 +20,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
-        android:textColor="@android:color/black"
+        android:layout_marginTop="8dp"
         android:textSize="18sp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/light"
         app:layout_constraintEnd_toEndOf="@id/iv_thumbnail"
         app:layout_constraintStart_toStartOf="@id/iv_thumbnail"
         app:layout_constraintTop_toBottomOf="@id/iv_thumbnail"
@@ -32,8 +35,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
-        android:textColor="@android:color/darker_gray"
+        android:layout_marginTop="4dp"
         android:textSize="16sp"
+        android:textColor="@color/gray_500"
         app:layout_constraintEnd_toEndOf="@id/iv_thumbnail"
         app:layout_constraintStart_toStartOf="@id/iv_thumbnail"
         app:layout_constraintTop_toBottomOf="@id/tv_site_name"
@@ -41,16 +45,16 @@
 
     <ToggleButton
         android:id="@+id/tb_bookmark"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_margin="8dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="12dp"
         android:background="@drawable/selector_toggle_bookmark"
-        android:backgroundTint="@android:color/holo_red_light"
+        android:backgroundTint="@color/main"
         android:clickable="false"
         android:textOff=""
         android:textOn=""
         app:layout_constraintEnd_toEndOf="@id/iv_thumbnail"
-        app:layout_constraintTop_toTopOf="@id/iv_thumbnail" />
+        app:layout_constraintBottom_toBottomOf="@id/iv_thumbnail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

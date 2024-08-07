@@ -25,6 +25,7 @@
         android:layout_marginEnd="8dp"
         android:layout_weight="1"
         android:textSize="16sp"
+        android:textColor="@color/light"
         tools:text="최근 검색어 1" />
 
     <ImageView
