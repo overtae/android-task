@@ -22,19 +22,26 @@
     <strong>[ 코드 보러가기 ]</strong>
     <br />
     <br />
-    <a href="https://github.com/overtae/android-task/tree/calculator">계산기</a>
+    <a href="https://github.com/overtae/android-task/tree/calculator">계산기 (CLI)</a>
     &nbsp
     <img src="https://github.com/overtae/android-task/assets/51291185/81275307-2fa7-4c4c-8358-8be747dd06c8" alt="divider" height="10" />
     &nbsp
-    <a href="https://github.com/overtae/android-task/tree/kiosk">키오스크</a>
+    <a href="https://github.com/overtae/android-task/tree/kiosk">키오스크 (CLI)</a>
     &nbsp
     <img src="https://github.com/overtae/android-task/assets/51291185/81275307-2fa7-4c4c-8358-8be747dd06c8" alt="divider" height="10" />
     &nbsp
     <a href="https://github.com/overtae/android-task/tree/login">자기소개 앱</a>
+    <br />
+    <br />
+    <a href="https://github.com/overtae/android-task/tree/clone-chzzk">치지직 앱 클론</a>
     &nbsp
     <img src="https://github.com/overtae/android-task/assets/51291185/81275307-2fa7-4c4c-8358-8be747dd06c8" alt="divider" height="10" />
     &nbsp
-    <a href="https://github.com/overtae/android-task/tree/clone-chzzk">치지직 앱 클론</a>
+    <a href="https://github.com/overtae/android-task/tree/search">이미지 검색 앱</a>
+    &nbsp
+    <img src="https://github.com/overtae/android-task/assets/51291185/81275307-2fa7-4c4c-8358-8be747dd06c8" alt="divider" height="10" />
+    &nbsp
+    <a href="https://github.com/overtae/android-task/tree/apple-market">사과 마켓 앱</a>
   </p>
 </div>
 
