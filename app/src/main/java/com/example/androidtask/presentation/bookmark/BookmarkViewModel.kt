@@ -3,7 +3,7 @@ package com.example.androidtask.presentation.bookmark
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.androidtask.presentation.ListItem
+import com.example.androidtask.presentation.data.ListItem
 import com.example.androidtask.data.repository.BookmarkRepository
 
 class BookmarkViewModel(private val repository: BookmarkRepository) : ViewModel() {

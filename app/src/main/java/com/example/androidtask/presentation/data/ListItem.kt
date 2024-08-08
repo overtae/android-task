@@ -1,4 +1,4 @@
-package com.example.androidtask.presentation
+package com.example.androidtask.presentation.data
 
 sealed class ListItem {
     data class ImageItem(

@@ -11,7 +11,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.androidtask.R
 import com.example.androidtask.databinding.ItemLoadingBinding
 import com.example.androidtask.databinding.ItemSearchResultBinding
-import com.example.androidtask.presentation.ListItem
+import com.example.androidtask.presentation.data.ListItem
+import com.example.androidtask.util.setMaxLineToggle
 import com.example.androidtask.util.toFormattedDatetime
 
 class SearchAdapter(private val onClick: (ListItem) -> Unit) :
@@ -109,7 +110,12 @@ class SearchAdapter(private val onClick: (ListItem) -> Unit) :
                 .transform(RoundedCorners(50))
                 .into(thumbnailImageView)
 
-            siteNameTextView.text = itemView.context.getString(R.string.search_item_image, siteName)
+            siteNameTextView.setMaxLineToggle(
+                itemView.context.getString(
+                    R.string.search_item_image,
+                    siteName
+                ), 2
+            )
             datetimeTextView.text = datetime.toFormattedDatetime()
             bookmarkToggleButton.isChecked = item.isBookmarked
 
@@ -141,7 +147,12 @@ class SearchAdapter(private val onClick: (ListItem) -> Unit) :
                 .transform(RoundedCorners(50))
                 .into(thumbnailImageView)
 
-            siteNameTextView.text = itemView.context.getString(R.string.search_item_video, title)
+            siteNameTextView.setMaxLineToggle(
+                itemView.context.getString(
+                    R.string.search_item_video,
+                    title
+                ), 2
+            )
             datetimeTextView.text = datetime.toFormattedDatetime()
             bookmarkToggleButton.isChecked = item.isBookmarked
 

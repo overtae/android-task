@@ -1,4 +1,4 @@
-package com.example.androidtask.presentation
+package com.example.androidtask.presentation.data
 
 import com.example.androidtask.data.model.ImageDocument
 import com.example.androidtask.data.model.VideoDocument

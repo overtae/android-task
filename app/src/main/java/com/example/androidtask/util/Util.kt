@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.Resources.getSystem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
@@ -27,3 +28,13 @@ fun Context.hideKeyBoard(view: View) {
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
+fun TextView.setMaxLineToggle(originalText: String, maxLine: Int) {
+    text = originalText
+    post {
+        if (layout.lineCount > maxLine - 1 && layout.getEllipsisCount(lineCount - 1) > 0) {
+            this.setOnClickListener {
+                maxLines = if (maxLines == maxLine) Int.MAX_VALUE else maxLine
+            }
+        }
+    }
+}

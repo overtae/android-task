@@ -1,6 +1,6 @@
 package com.example.androidtask.data.repository
 
-import com.example.androidtask.presentation.ListItem
+import com.example.androidtask.presentation.data.ListItem
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement

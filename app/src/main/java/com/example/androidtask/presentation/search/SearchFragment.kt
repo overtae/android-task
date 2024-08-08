@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtask.presentation.bookmark.BookmarkViewModel
 import com.example.androidtask.presentation.bookmark.BookmarkViewModelFactory
 import com.example.androidtask.databinding.FragmentSearchBinding
-import com.example.androidtask.presentation.ListItem
+import com.example.androidtask.presentation.data.ListItem
 import com.example.androidtask.presentation.recent_search.RecentSearchActivity
-import com.example.androidtask.presentation.copy
-import com.example.androidtask.presentation.find
-import com.example.androidtask.presentation.isBookmarked
+import com.example.androidtask.presentation.data.copy
+import com.example.androidtask.presentation.data.find
+import com.example.androidtask.presentation.data.isBookmarked
 import com.example.androidtask.presentation.recent_search.loadSearchHistory
 import com.example.androidtask.util.GridSpacingItemDecoration
 import com.example.androidtask.util.px

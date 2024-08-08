@@ -2,7 +2,7 @@ package com.example.androidtask.data.repository
 
 import android.content.Context
 import com.example.androidtask.R
-import com.example.androidtask.presentation.ListItem
+import com.example.androidtask.presentation.data.ListItem
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 

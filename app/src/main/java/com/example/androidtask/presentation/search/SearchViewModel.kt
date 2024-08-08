@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidtask.data.repository.SearchRepositoryImpl
-import com.example.androidtask.presentation.ListItem
-import com.example.androidtask.presentation.sortedByDatetime
-import com.example.androidtask.presentation.toImageListItem
-import com.example.androidtask.presentation.toVideoListItem
+import com.example.androidtask.presentation.data.ListItem
+import com.example.androidtask.presentation.data.sortedByDatetime
+import com.example.androidtask.presentation.data.toImageListItem
+import com.example.androidtask.presentation.data.toVideoListItem
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
