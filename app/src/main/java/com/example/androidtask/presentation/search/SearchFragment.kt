@@ -4,30 +4,30 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidtask.databinding.FragmentSearchBinding
 import com.example.androidtask.presentation.bookmark.BookmarkViewModel
 import com.example.androidtask.presentation.bookmark.BookmarkViewModelFactory
-import com.example.androidtask.databinding.FragmentSearchBinding
 import com.example.androidtask.presentation.data.ListItem
-import com.example.androidtask.presentation.recent_search.RecentSearchActivity
 import com.example.androidtask.presentation.data.copy
 import com.example.androidtask.presentation.data.find
 import com.example.androidtask.presentation.data.isBookmarked
-import com.example.androidtask.presentation.recent_search.loadSearchHistory
+import com.example.androidtask.presentation.recent_search.RecentSearchActivity
 import com.example.androidtask.util.GridSpacingItemDecoration
+import com.example.androidtask.util.loadSearchHistory
 import com.example.androidtask.util.px
 
-private const val SEARCH_TEXT = "search_text"
+private const val EXTRA_SEARCH_TEXT = "search_text"
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -54,7 +54,7 @@ class SearchFragment : Fragment() {
     }
 
     private var currentPage = 1
-    private val result = mutableListOf<ListItem>()
+    private val searchResult = mutableListOf<ListItem>()
     private val loadingItem = ListItem.LoadingItem(true) as ListItem
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
@@ -64,7 +64,7 @@ class SearchFragment : Fragment() {
         activityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    val searchText = result.data?.getStringExtra(SEARCH_TEXT)
+                    val searchText = result.data?.getStringExtra(EXTRA_SEARCH_TEXT)
                     binding.etSearch.setText(searchText)
                     handleSubmitInput()
                 }
@@ -93,18 +93,18 @@ class SearchFragment : Fragment() {
 
     private fun initViewModel() {
         searchViewModel.searchResult.observe(viewLifecycleOwner) {
-            result.addAll(it)
-            searchAdapter.submitList(listOf(*result.toTypedArray(), loadingItem))
+            searchResult.addAll(it)
+            searchAdapter.submitList(listOf(*searchResult.toTypedArray(), loadingItem))
         }
         bookmarkViewModel.bookmarkList.observe(viewLifecycleOwner) { bookmarks ->
-            result.replaceAll { r ->
+            searchResult.replaceAll { r ->
                 when {
                     bookmarks.find(r) == null && r.isBookmarked -> r.copy(isBookmarked = false)
                     bookmarks.find(r) != null && !r.isBookmarked -> r.copy(isBookmarked = true)
                     else -> r
                 }
             }
-            searchAdapter.submitList(result.toList())
+            searchAdapter.submitList(searchResult.toList())
         }
     }
 
@@ -127,7 +127,7 @@ class SearchFragment : Fragment() {
         etSearch.setOnClickListener {
             val intent = Intent(requireContext(), RecentSearchActivity::class.java).apply {
                 putExtra(
-                    SEARCH_TEXT,
+                    EXTRA_SEARCH_TEXT,
                     etSearch.text.toString()
                 )
             }
@@ -142,7 +142,7 @@ class SearchFragment : Fragment() {
         if (recentSearchText == searchText) return
         if (searchText.isNotEmpty()) {
             currentPage = 0
-            result.clear()
+            searchResult.clear()
             fetchNextPage()
             return
         }
@@ -172,14 +172,13 @@ class SearchFragment : Fragment() {
                 }
 
                 // scroll to top
-                // 더이상 위로 스크롤 할 수 없거나 버튼이 보이고 아래로 스크롤 중일 때
+                // > 더이상 위로 스크롤 할 수 없거나 버튼이 보이고 아래로 스크롤 중일 때
                 if (!recyclerView.canScrollVertically(-1) || (isVisible && dy > 0)) {
                     fabToTop.visibility = View.GONE
                     fabToTop.startAnimation(fadeOut)
                     isVisible = false
                 }
-
-                // 버튼이 보이지 않고 위로 스크롤 중일 때
+                // > 버튼이 보이지 않고 위로 스크롤 중일 때
                 else if (!isVisible && dy < 0) {
                     fabToTop.visibility = View.VISIBLE
                     fabToTop.startAnimation(fadeIn)

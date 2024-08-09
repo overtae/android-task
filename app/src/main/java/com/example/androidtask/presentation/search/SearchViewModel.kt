@@ -29,7 +29,6 @@ class SearchViewModel(
                 //  * 현재 날짜 상관 없이 image 5개, video 5개를 불러오고 -> 날짜 순으로 정렬
                 //  * 그러나 image 결과 값과 video 결과 값의 날짜 범위는 서로 다르다.
                 //  * 따라서 매번 불러올 때마다 기존에 표시되던 리스트의 순서가 변경되는 일이 생긴다.
-                //  * 어케함???
                 val imageResponse = repository.getImageList(searchText, page)
                 val videoResponse = repository.getVideoList(searchText, page)
 

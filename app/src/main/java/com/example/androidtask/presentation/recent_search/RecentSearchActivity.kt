@@ -1,6 +1,5 @@
 package com.example.androidtask.presentation.recent_search
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -13,16 +12,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.androidtask.R
 import com.example.androidtask.databinding.ActivityRecentSearchBinding
-import com.google.gson.Gson
+import com.example.androidtask.util.loadSearchHistory
+import com.example.androidtask.util.saveSearchHistory
 
-private const val SEARCH_TEXT = "search_text"
-private const val RECENT_SEARCH = "recent_search"
+private const val EXTRA_SEARCH_TEXT = "search_text"
 
 class RecentSearchActivity : AppCompatActivity() {
     private val binding by lazy { ActivityRecentSearchBinding.inflate(layoutInflater) }
-    private val initialSearchText by lazy { intent.getStringExtra(SEARCH_TEXT) ?: "" }
+    private val initialSearchText by lazy { intent.getStringExtra(EXTRA_SEARCH_TEXT) ?: "" }
     private val recentSearchList: ArrayList<String> by lazy {
         loadSearchHistory(this).toCollection(
             ArrayList()
@@ -44,6 +42,11 @@ class RecentSearchActivity : AppCompatActivity() {
             insets
         }
         initView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        saveSearchHistory(this, recentSearchList)
     }
 
     private fun initView() = with(binding) {
@@ -79,9 +82,8 @@ class RecentSearchActivity : AppCompatActivity() {
             val newList = listOf(*recentSearchList.filter { it != item }.toTypedArray(), item)
             recentSearchAdapter.submitList(newList.toList())
             recentSearchList.clear().also { recentSearchList.addAll(newList) }
-            saveSearchHistory(this, newList)
 
-            val intent = Intent().apply { putExtra(SEARCH_TEXT, item) }
+            val intent = Intent().apply { putExtra(EXTRA_SEARCH_TEXT, item) }
             setResult(RESULT_OK, intent)
             finish()
         } else Toast.makeText(this, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
@@ -91,27 +93,5 @@ class RecentSearchActivity : AppCompatActivity() {
         val newList = recentSearchList.filter { it != item }
         recentSearchAdapter.submitList(newList.toList())
         recentSearchList.clear().also { recentSearchList.addAll(newList) }
-        saveSearchHistory(this, recentSearchList)
     }
-}
-
-fun saveSearchHistory(context: Context, item: List<String>) {
-    val gson = Gson()
-    val sharedPref = context.getSharedPreferences(
-        context.getString(R.string.preference_file_key),
-        Context.MODE_PRIVATE
-    )
-    val edit = sharedPref.edit()
-    edit.putString(RECENT_SEARCH, gson.toJson(item))
-    edit.apply()
-}
-
-fun loadSearchHistory(context: Context): List<String> {
-    val gson = Gson()
-    val sharedPref = context.getSharedPreferences(
-        context.getString(R.string.preference_file_key),
-        Context.MODE_PRIVATE
-    )
-    val json = sharedPref.getString(RECENT_SEARCH, "")
-    return gson.fromJson(json, Array<String>::class.java)?.toList() ?: listOf()
 }

@@ -6,7 +6,7 @@ import com.example.androidtask.presentation.data.ListItem
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 
-private const val BOOKMARK_LIST = "bookmark_list"
+private const val PREF_BOOKMARK_LIST = "bookmark_list"
 
 class BookmarkRepository(context: Context) {
     private val gson =
@@ -32,7 +32,8 @@ class BookmarkRepository(context: Context) {
     }
 
     private fun loadBookmarkList(): MutableList<ListItem> {
-        val jsonString = sharedPreferences.getString(BOOKMARK_LIST, null) ?: return mutableListOf()
+        val jsonString =
+            sharedPreferences.getString(PREF_BOOKMARK_LIST, null) ?: return mutableListOf()
         val listType = object : TypeToken<MutableList<ListItem>>() {}.type
 
         return gson.fromJson(jsonString, listType)
@@ -40,6 +41,6 @@ class BookmarkRepository(context: Context) {
 
     private fun saveBookmarkList() {
         val jsonString = gson.toJson(_bookmarkList)
-        sharedPreferences.edit().putString(BOOKMARK_LIST, jsonString).apply()
+        sharedPreferences.edit().putString(PREF_BOOKMARK_LIST, jsonString).apply()
     }
 }

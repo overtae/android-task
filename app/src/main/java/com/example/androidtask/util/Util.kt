@@ -6,9 +6,13 @@ import android.content.res.Resources.getSystem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import com.example.androidtask.R
+import com.google.gson.Gson
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
+
+private const val PREF_RECENT_SEARCH = "recent_search"
 
 val Float.px get() = (this * getSystem().displayMetrics.density).toInt()
 val Int.dp get() = (this / getSystem().displayMetrics.density).toInt()
@@ -37,4 +41,25 @@ fun TextView.setMaxLineToggle(originalText: String, maxLine: Int) {
             }
         }
     }
+}
+
+fun saveSearchHistory(context: Context, item: List<String>) {
+    val gson = Gson()
+    val sharedPref = context.getSharedPreferences(
+        context.getString(R.string.preference_file_key),
+        Context.MODE_PRIVATE
+    )
+    val edit = sharedPref.edit()
+    edit.putString(PREF_RECENT_SEARCH, gson.toJson(item))
+    edit.apply()
+}
+
+fun loadSearchHistory(context: Context): List<String> {
+    val gson = Gson()
+    val sharedPref = context.getSharedPreferences(
+        context.getString(R.string.preference_file_key),
+        Context.MODE_PRIVATE
+    )
+    val json = sharedPref.getString(PREF_RECENT_SEARCH, "")
+    return gson.fromJson(json, Array<String>::class.java)?.toList() ?: listOf()
 }
